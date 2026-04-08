@@ -1,0 +1,286 @@
+.container-ui-only {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  max-width: 1140px;
+}
+
+.carousel-inner {
+  max-width: 710px;
+  margin: 40px auto;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: #888888;
+}
+
+.carousel-indicators {
+  margin-bottom: 0px;
+}
+
+#more-about-me .card-body a.bs-icon {
+  color: #fff;
+  border-bottom: none;
+}
+
+#more-about-me .card {
+  border-radius: 16px;
+  padding: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+#more-about-me .card-body a {
+  color: #333;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px dashed #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.more-about-me-link a {
+  margin-right: 12px;
+}
+
+@media (min-width: 768px) {
+  #title-strategy .subheading {
+    margin: 0;
+    border: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  #title-strategy .subheading h6 {
+    max-width: 180px;
+    font-size: 18px;
+  }
+}
+
+.card-strategy .content-stack-02 {
+  padding: 0 24px 24px 24px;
+  background: #EAEAE1;
+}
+
+.card-strategy img {
+  width: 100%;
+  /*height: 100%;*/
+  display: block;
+  /*margin-bottom: 8px;*/
+}
+
+.card-strategy .img-link {
+  display: block;
+  padding: 24px 24px 8px 24px;
+  background: #EAEAE1;
+}
+
+.card-strategy {
+  border: 1px solid #e8e8e8;
+  border-width: 0 1px;
+  padding: 0;
+  /*background: url('../../assets/img/cs-design-culture-bg.png') bottom / contain no-repeat #fff;*/
+  background-size: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  /*background: #f8f9fa;*/
+}
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*background: #f8f9fa;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  color: #333;
+}
+
+#content {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.card-case-study .content-stack-02 {
+  border: 1px solid #e8e8e8;
+  border-width: 0 1px;
+  padding: 24px;
+}
+
+.card-case-study {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.brand-okcredit {
+  background: #699E6B;
+}
+
+.brand-tala {
+  background: #61C8C8;
+}
+
+.brand-moengage {
+  background: #7592DA;
+}
+
+.card-case-study .content-stack-01 a {
+  display: block;
+}
+
+.card-case-study .content-stack-01 img {
+  max-width: 100%;
+}
+
+.intro-block-01 {
+  /*padding-top: 24px;*/
+  /*padding-bottom: 64px;*/
+}
+
+.intro-block-01 .list-unstyled, .intro-block-01 .list-unstyled li:last-child {
+  margin-bottom: 0;
+}
+
+.usability-testing-guided-design {
+  padding-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .usability-testing-guided-design {
+    padding-top: 0;
+  }
+}
+
+.case-study-card.inbetweens {
+  margin: 0 0 32px 0;
+}
+
+@media (min-width: 768px) {
+  .case-study-card.inbetweens {
+    margin: 0;
+  }
+}
+
+.container-case-study .subheading {
+  margin: 16px 0 32px 0;
+  border-bottom: 1px solid #bdbdbd;
+  padding: 0 0 12px 0;
+}
+
+.case-study-card .content-stack-02 {
+  padding: 24px;
+  border: 1px solid #E8E8E8;
+  border-width: 0 1px;
+}
+
+.list-unstyled li {
+  margin: 0 0 8px 0;
+  line-height: 22px;
+}
+
+.loadersmall {
+  border: 4px solid #f3f3f3;
+  -webkit-animation: spin 0.9s linear infinite;
+  animation: spin 1s linear infinite;
+  border-top: 3px solid #555;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.intro-role {
+  margin: 0 0 4px 0;
+}
+
+.intro-name {
+  margin: 0 0 4px 0;
+  color: #FD6F00;
+}
+
+@media (min-width: 768px) {
+  .container-intro {
+    margin-top: 68px;
+    margin-bottom: 76px;
+  }
+}
+
+.even-row-colored {
+  background: #F8F7F1;
+  padding: 64px 0;
+}
+
+.case-study-card {
+  background: #fff;
+  position: relative;
+  padding-bottom: 72px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* .cust-button {  display: inline-block;  background: #EDEBDC;  color: #333333;  font-size: 16px;  font-weight: 500;  padding: 16px 24px;  left: 0;  right: 0;  bottom: 0;  text-decoration: none;  text-transform: uppercase;  border-radius: 16px;} */
+
+.cust-button {
+  color: #333;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.cust-button span {
+  display: inline-block;
+  border-bottom: 1px dashed #333;
+}
+
+.cust-button:hover {
+  /*background: #E4E2D3;*/
+}
+
+.case-study-card-button {
+  display: block;
+  background: #333;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 20px 24px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.case-study-card-button.disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+.case-study-card-button.disabled:hover {
+  background: #888;
+}
+
+.case-study-card-button:hover {
+  background: #222;
+}
+
