@@ -1,0 +1,13 @@
+{
+  "name": "uxgraphy-portfolio",
+  "version": "1.0.0",
+  "description": "Somnath Nabajja portfolio — static site (Tailwind CSS, plain HTML/JS).",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
