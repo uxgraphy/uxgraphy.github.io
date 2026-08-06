@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './assets/js/**/*.js'],
+  content: ['./index.html', './writeups.html', './assets/js/**/*.js'],
   theme: {
     // Match Bootstrap 5 breakpoints so responsive behavior stays identical
     screens: {
@@ -13,6 +13,15 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
+      },
+      keyframes: {
+        nudge: {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '50%': { transform: 'translate(3px, -3px)' },
+        },
+      },
+      animation: {
+        nudge: 'nudge 0.7s ease-in-out infinite',
       },
     },
   },
