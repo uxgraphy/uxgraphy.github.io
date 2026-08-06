@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C00L9YWZW7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-C00L9YWZW7');
+  </script>
+
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "rg7wif6lt8");
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Writeups — Somnath Nabajja</title>
+  <meta name="description" content="A running list of things Somnath Nabajja has written on design, product, and craft — across Substack, Medium, LinkedIn, and Quora.">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <style>
+    body { margin: 0; background: #fff; }
+    a.wu-row-link { text-decoration: none; color: inherit; }
+    a.wu-row-link:hover .wu-title { color: #FF6719; }
+    a.wu-row-link:hover .wu-arrow { opacity: 1; transform: translateX(2px); }
+  </style>
+</head>
+
+<body>
+  <div style="font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: rgb(33,37,41); background: #fff; min-height: 100vh;">
+
+    <div style="max-width: 1140px; margin: 0 auto; padding: 28px 24px 0;">
+      <a href="index.html" style="font-size: 14px; color: rgb(33,37,41); text-decoration: none; opacity: 0.7;">&larr; Back to home</a>
+    </div>
+
+    <div style="max-width: 1140px; margin: 0 auto; padding: 20px 24px 16px;">
+      <h1 style="font-size: 32px; font-weight: 700; margin: 0 0 6px;">Writeups</h1>
+      <p style="font-size: 14px; color: rgb(90,96,102); margin: 0; max-width: 620px;">A running list of things I've written on design, product, and craft — across Substack, Medium, LinkedIn, and Quora.</p>
+    </div>
+
+    <div id="writeups-list" style="max-width: 1140px; margin: 0 auto; padding: 0 24px 56px;"></div>
+
+  </div>
+
+  <script src="assets/js/articles-data.js"></script>
+  <script>
+    (function () {
+      var ICONS = {
+        substack: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#fff" viewBox="0 0 16 16"><path d="M15 3.604H1v1.891h14v-1.89ZM1 7.208V16l7-3.926L15 16V7.208zM15 0H1v1.89h14z"/></svg>',
+        medium: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#fff" viewBox="0 0 16 16"><path d="M9.025 8c0 2.485-2.02 4.5-4.513 4.5A4.506 4.506 0 0 1 0 8c0-2.486 2.02-4.5 4.512-4.5A4.506 4.506 0 0 1 9.025 8m4.95 0c0 2.34-1.01 4.236-2.256 4.236-1.246 0-2.256-1.897-2.256-4.236 0-2.34 1.01-4.236 2.256-4.236 1.246 0 2.256 1.897 2.256 4.236M16 8c0 2.096-.355 3.795-.794 3.795-.438 0-.793-1.7-.793-3.795 0-2.096.355-3.795.794-3.795.438 0 .793 1.699.793 3.795"/></svg>',
+        quora: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#fff" viewBox="0 0 16 16"><path d="M8.73 12.476c-.554-1.091-1.204-2.193-2.473-2.193-.242 0-.484.04-.707.142l-.43-.863c.525-.45 1.373-.808 2.464-.808 1.697 0 2.568.818 3.26 1.86.41-.89.605-2.093.605-3.584 0-3.724-1.165-5.636-3.885-5.636-2.68 0-3.839 1.912-3.839 5.636 0 3.704 1.159 5.596 3.84 5.596.425 0 .811-.046 1.166-.15Zm.665 1.3a7.127 7.127 0 0 1-1.83.244C3.994 14.02.5 11.172.5 7.03.5 2.849 3.995 0 7.564 0c3.63 0 7.09 2.828 7.09 7.03 0 2.337-1.09 4.236-2.675 5.464.512.767 1.04 1.277 1.773 1.277.802 0 1.125-.62 1.179-1.105h1.043c.061.647-.262 3.334-3.178 3.334-1.767 0-2.7-1.024-3.4-2.224Z"/></svg>',
+        linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="#fff" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401m-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4"/></svg>'
+      };
+      var COLORS = { substack: '#FF6719', medium: '#242424', quora: '#B92B27', linkedin: '#0A66C2' };
+
+      function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      var articles = (window.__ARTICLES__ || []);
+      var grouped = {};
+      articles.forEach(function (a) {
+        grouped[a.year] = grouped[a.year] || [];
+        grouped[a.year].push(a);
+      });
+      var years = Object.keys(grouped).sort(function (a, b) { return b - a; });
+
+      var html = years.map(function (year) {
+        var rows = grouped[year].map(function (article) {
+          var color = COLORS[article.source] || '#888';
+          var icon = ICONS[article.source] || '';
+          return '' +
+            '<a class="wu-row-link" href="' + escapeHtml(article.link) + '" target="_blank" rel="noopener noreferrer" style="display: block; padding: 7px 0;">' +
+              '<div style="display: inline-flex; align-items: center; gap: 10px;">' +
+                '<div style="width: 20px; height: 20px; flex: none; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: ' + color + ';">' + icon + '</div>' +
+                '<span class="wu-title" style="font-size: 14px; font-weight: 600; transition: color .15s; text-decoration: underline; text-decoration-style: dashed; text-decoration-color: rgb(77,81,84); text-decoration-thickness: 1px; text-underline-offset: 4px;">' + escapeHtml(article.title) + '</span>' +
+                '<span class="wu-arrow" style="font-size: 12px; color: rgb(150,155,160); opacity: 0; transition: all .15s;">&rarr;</span>' +
+              '</div>' +
+            '</a>';
+        }).join('');
+
+        return '' +
+          '<div style="padding: 40px 0; border-top: 1px solid rgb(225,227,229);">' +
+            '<div style="font-size: 19px; font-weight: 700; margin-bottom: 2px;">' + year + '</div>' +
+            rows +
+          '</div>';
+      }).join('');
+
+      document.getElementById('writeups-list').innerHTML = html;
+    })();
+  </script>
+</body>
+
+</html>
