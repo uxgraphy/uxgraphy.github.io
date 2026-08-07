@@ -61,16 +61,15 @@
 
     <div class="text-[rgb(33,37,41)] bg-white min-h-screen">
 
-      <div class="mx-auto w-full px-6 pt-7" style="max-width: 1140px;">
-        <a href="index.html" class="text-sm text-[rgb(33,37,41)] no-underline opacity-70">&larr; Back to home</a>
+      <div class="bg-[#f8f7f1] border-b border-[#efefef]">
+
+        <div class="mx-auto w-full py-12" style="max-width: 1140px;">
+          <h1 class="font-bold mb-2">Writeups</h1>
+          <p class="max-w-[620px] mb-0 text-sm text-[rgb(90,96,102)]">A running list of things I've written on design, product, and craft — across Substack, Medium, LinkedIn, and Quora.</p>
+        </div>
       </div>
 
-      <div class="mx-auto w-full px-6 pt-5 pb-4" style="max-width: 1140px;">
-        <h1 class="font-bold mb-1.5">Writeups</h1>
-        <p class="max-w-[620px] text-sm text-[rgb(90,96,102)]">A running list of things I've written on design, product, and craft — across Substack, Medium, LinkedIn, and Quora.</p>
-      </div>
-
-      <div id="writeups-list" class="mx-auto w-full px-6 pb-14" style="max-width: 1140px;"></div>
+      <div id="writeups-list" class="mx-auto w-full px-6 pt-6 pb-14" style="max-width: 1140px;"></div>
 
     </div>
   </div>
@@ -117,8 +116,8 @@
         }).join('');
 
         return '' +
-          '<div class="pt-10">' +
-            '<div class="text-[19px] font-bold border-b border-[#bdbdbd] pb-3 mb-8">' + year + '</div>' +
+          '<div class="pt-12">' +
+            '<div class="text-[19px] font-bold border-b border-[#bdbdbd] pb-3 mb-6">' + year + '</div>' +
             rows +
           '</div>';
       }).join('');
