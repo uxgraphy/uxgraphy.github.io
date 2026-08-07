@@ -1,35 +1,54 @@
 // ============================================================
-//  Preloader
+//  Preloader (disabled)
 // ============================================================
-const randomTexts = [
-  "Just make it EXIST first. You can make it good later.",
-  "Hang tight!",
-  "Almost there!"
-];
+// The loading-screen experience is turned off — the #preloader markup is
+// commented out in index.html / writeups.html, and #content now shows
+// immediately via CSS instead of waiting on this script. Kept here in case
+// it needs to come back.
+//
+// const randomTexts = [
+//   "Just make it EXIST first. You can make it good later.",
+//   "Hang tight!",
+//   "Almost there!"
+// ];
+//
+// document.getElementById('loading-text').textContent =
+//   randomTexts[Math.floor(Math.random() * randomTexts.length)];
+//
+// function revealContent() {
+//   const preloader = document.getElementById('preloader');
+//   const content = document.getElementById('content');
+//
+//   preloader.style.display = 'none';
+//   content.style.display = 'block';
+//   content.style.opacity = '1';
+//   content.style.transition = 'opacity 0.2s ease-in-out';
+//
+//   // Content was hidden while the preloader ran, so the browser's
+//   // automatic scroll-to-hash on load had nothing to scroll to. Do it now.
+//   if (window.location.hash) {
+//     const target = document.getElementById(window.location.hash.slice(1));
+//     if (target) target.scrollIntoView({ behavior: 'smooth' });
+//   }
+// }
+//
+// // The preloader exists to cover real loading time, not as a fixed-length
+// // animation. If the page (and its cached assets) are already loaded by the
+// // time this script runs, there's nothing to wait for, so skip it entirely.
+// if (document.readyState === 'complete') {
+//   revealContent();
+// } else {
+//   window.addEventListener('load', revealContent);
+// }
 
-document.getElementById('loading-text').textContent =
-  randomTexts[Math.floor(Math.random() * randomTexts.length)];
-
-// First visit shows the preloader a little longer than repeat visits
-const isFirstLoad = !localStorage.getItem('hasLoadedBefore');
-const delay = isFirstLoad ? 4000 : 1500;
-
-window.addEventListener('load', () => {
-  const preloader = document.getElementById('preloader');
-  const content = document.getElementById('content');
-
-  setTimeout(() => {
-    preloader.style.display = 'none';
-    content.style.display = 'block';
-
-    setTimeout(() => {
-      content.style.opacity = '1';
-      content.style.transition = 'opacity 0.2s ease-in-out';
-    }, 200);
-
-    localStorage.setItem('hasLoadedBefore', 'true');
-  }, delay);
-});
+// ============================================================
+//  Anchor scrolling
+// ============================================================
+// Same-document anchor jumps (clicking "Case Studies" while already on the
+// home page) animate via `scroll-behavior: smooth` in CSS. Arriving from
+// another page (writeups.html -> index.html#case-studies) is a cross-document
+// load and is deliberately left instant — the browser's native behavior —
+// so the section is simply there on arrival with no animation on landing.
 
 // Kept from the original site (referenced ad-hoc; harmless if unused)
 function RequestCaseStudy() {
