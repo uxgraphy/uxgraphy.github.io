@@ -44,6 +44,31 @@ function RequestCaseStudy() {
 }
 
 // ============================================================
+//  Header burger menu
+// ============================================================
+(function () {
+  const burger = document.getElementById('nav-burger');
+  const menu = document.getElementById('mobile-menu');
+  const scrim = document.getElementById('menu-scrim');
+  if (!burger || !menu) return;
+
+  function setMenu(open) {
+    menu.classList.toggle('is-open', open);
+    if (scrim) scrim.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
+  if (scrim) scrim.addEventListener('click', () => setMenu(false));
+  document.addEventListener('click', (e) => {
+    if (!menu.classList.contains('is-open')) return;
+    if (menu.contains(e.target) || burger.contains(e.target)) return;
+    setMenu(false);
+  });
+})();
+
+// ============================================================
 //  Carousel (vanilla replacement for the Bootstrap component)
 // ============================================================
 (function () {
