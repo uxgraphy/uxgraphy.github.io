@@ -1724,10 +1724,6 @@ body{
   order:9999
 }
 
-.order-first{
-  order:-9999
-}
-
 .-mx-3{
   margin-left:-0.75rem;
   margin-right:-0.75rem
@@ -1790,10 +1786,6 @@ body{
   display:inline-flex
 }
 
-.grid{
-  display:grid
-}
-
 .hidden{
   display:none
 }
@@ -1830,10 +1822,6 @@ body{
   max-width:620px
 }
 
-.max-w-\[96\%\]{
-  max-width:96%
-}
-
 .flex-1{
   flex:1 1 0%
 }
@@ -1866,10 +1854,6 @@ body{
   flex-wrap:wrap
 }
 
-.items-start{
-  align-items:flex-start
-}
-
 .items-center{
   align-items:center
 }
@@ -1898,20 +1882,12 @@ body{
   gap:1.75rem
 }
 
-.gap-10{
-  gap:2.5rem
-}
-
-.gap-6{
-  gap:1.5rem
-}
-
-.gap-8{
-  gap:2rem
-}
-
 .gap-y-6{
   row-gap:1.5rem
+}
+
+.gap-y-4{
+  row-gap:1rem
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]){
@@ -2050,11 +2026,6 @@ body{
 .py-6{
   padding-top:1.5rem;
   padding-bottom:1.5rem
-}
-
-.py-10{
-  padding-top:2.5rem;
-  padding-bottom:2.5rem
 }
 
 .py-8{
@@ -2238,6 +2209,11 @@ body{
   color:rgb(253 111 0 / var(--tw-text-opacity, 1))
 }
 
+.hover\:text-\[\#212529\]:hover{
+  --tw-text-opacity:1;
+  color:rgb(33 37 41 / var(--tw-text-opacity, 1))
+}
+
 @keyframes nudge{
   0%, 100%{
     transform:translate(0, 0)
@@ -2305,20 +2281,12 @@ body{
     width:66.666667%
   }
 
-  .md\:max-w-\[440px\]{
-    max-width:440px
-  }
-
   .md\:flex-row{
     flex-direction:row
   }
 
-  .md\:gap-6{
-    gap:1.5rem
-  }
-
-  .md\:gap-16{
-    gap:4rem
+  .md\:gap-0{
+    gap:0px
   }
 
   .md\:gap-x-6{
@@ -2326,48 +2294,23 @@ body{
          column-gap:1.5rem
   }
 
-  .md\:py-14{
-    padding-top:3.5rem;
-    padding-bottom:3.5rem
-  }
-
   .md\:px-10{
     padding-left:2.5rem;
     padding-right:2.5rem
   }
 
-  .md\:pt-4{
-    padding-top:1rem
+  .md\:py-8{
+    padding-top:2rem;
+    padding-bottom:2rem
   }
 
-  .md\:pt-14{
-    padding-top:3.5rem
+  .md\:py-16{
+    padding-top:4rem;
+    padding-bottom:4rem
   }
 
   .md\:text-center{
     text-align:center
-  }
-}
-
-@media (min-width: 992px){
-  .lg\:order-none{
-    order:0
-  }
-
-  .lg\:grid-cols-\[1\.15fr_0\.85fr\]{
-    grid-template-columns:1.15fr 0.85fr
-  }
-
-  .lg\:gap-12{
-    gap:3rem
-  }
-
-  .lg\:self-center{
-    align-self:center
-  }
-
-  .lg\:justify-self-end{
-    justify-self:end
   }
 }
 
