@@ -58,6 +58,10 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
   }
+  /* Anchor-link scroll targets get focus() moved to them for a11y (see
+     app.js); suppress the default focus ring here since it's not a
+     keyboard-navigated interactive element, just a landing point. */
+  [tabindex="-1"]:focus { outline: none; }
   body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -126,6 +130,13 @@
 
   /* Site header: burger menu + scrim transitions */
   #site-header a { text-decoration: none; }
+
+  .logo-link {
+    display: inline-block;
+    transition: transform 0.25s ease;
+    transform-origin: center center;
+  }
+  .logo-link:hover { transform: scale(1.035); }
 
   #mobile-menu {
     visibility: hidden;

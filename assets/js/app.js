@@ -85,6 +85,35 @@ function RequestCaseStudy() {
     if (menu.contains(e.target) || burger.contains(e.target)) return;
     setMenu(false);
   });
+
+  // Same-page anchor links (nav bar + mobile menu): close the mobile
+  // dropdown immediately so it doesn't sit on top of the section the page
+  // is scrolling to, and move focus to the target for keyboard/screen
+  // reader users per WCAG 2.4.3 (scroll-behavior alone only moves sighted
+  // mouse users).
+  //
+  // The focus() call is deferred until the smooth-scroll animation ends
+  // (via `scrollend`, falling back to a timeout). Safari doesn't honor
+  // focus's `preventScroll` option, so calling it immediately made Safari
+  // perform its own instant scroll-into-view that ignores scroll-margin,
+  // overshooting past the sticky header. Waiting until the page has
+  // already settled at the right position makes that forced scroll a
+  // no-op.
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      if (!target) return;
+      setMenu(false);
+      target.setAttribute('tabindex', '-1');
+
+      const focusTarget = () => target.focus({ preventScroll: true });
+      if ('onscrollend' in window) {
+        window.addEventListener('scrollend', focusTarget, { once: true });
+      } else {
+        setTimeout(focusTarget, 500);
+      }
+    });
+  });
 })();
 
 // ============================================================
