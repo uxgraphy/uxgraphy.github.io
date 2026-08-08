@@ -1408,6 +1408,10 @@ body{
   margin:0 0 4px
 }
 
+.container-intro{
+  padding-top:32px
+}
+
 @media (min-width:768px){
   #title-strategy .subheading{
     margin:0;
@@ -1862,10 +1866,6 @@ body{
   justify-content:space-between
 }
 
-.gap-1\.5{
-  gap:0.375rem
-}
-
 .gap-2{
   gap:0.5rem
 }
@@ -1915,20 +1915,20 @@ body{
   white-space:nowrap
 }
 
-.rounded-full{
-  border-radius:9999px
-}
-
 .rounded-lg{
   border-radius:0.5rem
 }
 
-.border{
-  border-width:1px
-}
-
 .border-b{
   border-bottom-width:1px
+}
+
+.border-b-2{
+  border-bottom-width:2px
+}
+
+.border-l-4{
+  border-left-width:4px
 }
 
 .border-\[\#FD6F00\]{
@@ -1984,19 +1984,9 @@ body{
   padding-right:0.75rem
 }
 
-.px-4{
-  padding-left:1rem;
-  padding-right:1rem
-}
-
 .px-6{
   padding-left:1.5rem;
   padding-right:1.5rem
-}
-
-.py-1\.5{
-  padding-top:0.375rem;
-  padding-bottom:0.375rem
 }
 
 .py-12{
@@ -2019,12 +2009,20 @@ body{
   padding-bottom:1rem
 }
 
+.pb-1{
+  padding-bottom:0.25rem
+}
+
 .pb-14{
   padding-bottom:3.5rem
 }
 
 .pb-3{
   padding-bottom:0.75rem
+}
+
+.pl-2{
+  padding-left:0.5rem
 }
 
 .pt-12{
@@ -2175,10 +2173,6 @@ body{
 
 .ease-in-out{
   transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)
-}
-
-.hover\:bg-\[\#FD6F00\]\/15:hover{
-  background-color:rgb(253 111 0 / 0.15)
 }
 
 .hover\:bg-\[\#f8f7f1\]:hover{
