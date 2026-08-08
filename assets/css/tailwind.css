@@ -1279,7 +1279,10 @@ svg {
 
 #more-about-me .card-body a.bs-icon{
   color:#fff;
-  border-bottom:none
+  border-bottom:none;
+  width:48px;
+  height:48px;
+  font-size:32px
 }
 
 #more-about-me .card{
@@ -1520,6 +1523,10 @@ body{
   border-radius:50%
 }
 
+#more-about-me .card-body a.bs-icon{
+  font-size:24px
+}
+
 /* --- Extra component helpers --- */
 
 .list-unstyled {
@@ -1705,6 +1712,10 @@ body{
   margin-right:auto
 }
 
+.mb-0{
+  margin-bottom:0px
+}
+
 .mb-1{
   margin-bottom:0.25rem
 }
@@ -1721,8 +1732,8 @@ body{
   margin-bottom:1rem
 }
 
-.mb-8{
-  margin-bottom:2rem
+.mb-6{
+  margin-bottom:1.5rem
 }
 
 .mt-12{
@@ -1735,14 +1746,6 @@ body{
 
 .mt-6{
   margin-top:1.5rem
-}
-
-.mb-6{
-  margin-bottom:1.5rem
-}
-
-.mb-0{
-  margin-bottom:0px
 }
 
 .block{
@@ -1859,10 +1862,6 @@ body{
 
 .gap-7{
   gap:1.75rem
-}
-
-.gap-1{
-  gap:0.25rem
 }
 
 .gap-y-6{
@@ -1982,6 +1981,11 @@ body{
   padding-bottom:0.375rem
 }
 
+.py-12{
+  padding-top:3rem;
+  padding-bottom:3rem
+}
+
 .py-2{
   padding-top:0.5rem;
   padding-bottom:0.5rem
@@ -1997,25 +2001,6 @@ body{
   padding-bottom:1rem
 }
 
-.py-6{
-  padding-top:1.5rem;
-  padding-bottom:1.5rem
-}
-
-.py-8{
-  padding-top:2rem;
-  padding-bottom:2rem
-}
-
-.py-12{
-  padding-top:3rem;
-  padding-bottom:3rem
-}
-
-.pb-10{
-  padding-bottom:2.5rem
-}
-
 .pb-14{
   padding-bottom:3.5rem
 }
@@ -2024,28 +2009,12 @@ body{
   padding-bottom:0.75rem
 }
 
-.pt-10{
-  padding-top:2.5rem
+.pt-12{
+  padding-top:3rem
 }
 
 .pt-6{
   padding-top:1.5rem
-}
-
-.pt-8{
-  padding-top:2rem
-}
-
-.pb-1{
-  padding-bottom:0.25rem
-}
-
-.pt-4{
-  padding-top:1rem
-}
-
-.pt-12{
-  padding-top:3rem
 }
 
 .text-left{
@@ -2070,11 +2039,6 @@ body{
   line-height:1.25rem
 }
 
-.text-xs{
-  font-size:0.75rem;
-  line-height:1rem
-}
-
 .font-bold{
   font-weight:700
 }
@@ -2091,16 +2055,8 @@ body{
   font-weight:600
 }
 
-.uppercase{
-  text-transform:uppercase
-}
-
 .leading-\[200\%\]{
   line-height:200%
-}
-
-.tracking-wide{
-  letter-spacing:0.025em
 }
 
 .text-\[\#212529\]{
@@ -2165,10 +2121,6 @@ body{
   opacity:0
 }
 
-.opacity-70{
-  opacity:0.7
-}
-
 .backdrop-blur{
   --tw-backdrop-blur:blur(8px);
   -webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -2219,10 +2171,6 @@ body{
 .hover\:text-\[\#FD6F00\]:hover{
   --tw-text-opacity:1;
   color:rgb(253 111 0 / var(--tw-text-opacity, 1))
-}
-
-.hover\:opacity-100:hover{
-  opacity:1
 }
 
 @keyframes nudge{
