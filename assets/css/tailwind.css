@@ -1252,6 +1252,10 @@ a:hover {
   color: #0a58ca;
 }
 
+a.text-\[\#FD6F00\]:hover {
+  color: #FD6F00;
+}
+
 img, svg {
   vertical-align: middle;
 }
@@ -1406,10 +1410,6 @@ body{
 
 .intro-role{
   margin:0 0 4px
-}
-
-.container-intro{
-  padding-top:32px
 }
 
 @media (min-width:768px){
@@ -1882,12 +1882,12 @@ body{
   gap:1.75rem
 }
 
-.gap-y-6{
-  row-gap:1.5rem
-}
-
 .gap-y-4{
   row-gap:1rem
+}
+
+.gap-y-6{
+  row-gap:1.5rem
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]){
@@ -2021,16 +2021,6 @@ body{
 .py-7{
   padding-top:1.75rem;
   padding-bottom:1.75rem
-}
-
-.py-6{
-  padding-top:1.5rem;
-  padding-bottom:1.5rem
-}
-
-.py-8{
-  padding-top:2rem;
-  padding-bottom:2rem
 }
 
 .pb-1{
@@ -2204,14 +2194,14 @@ body{
   background-color:rgb(248 247 241 / var(--tw-bg-opacity, 1))
 }
 
-.hover\:text-\[\#FD6F00\]:hover{
-  --tw-text-opacity:1;
-  color:rgb(253 111 0 / var(--tw-text-opacity, 1))
-}
-
 .hover\:text-\[\#212529\]:hover{
   --tw-text-opacity:1;
   color:rgb(33 37 41 / var(--tw-text-opacity, 1))
+}
+
+.hover\:text-\[\#FD6F00\]:hover{
+  --tw-text-opacity:1;
+  color:rgb(253 111 0 / var(--tw-text-opacity, 1))
 }
 
 @keyframes nudge{
@@ -2285,10 +2275,6 @@ body{
     flex-direction:row
   }
 
-  .md\:gap-0{
-    gap:0px
-  }
-
   .md\:gap-x-6{
     -moz-column-gap:1.5rem;
          column-gap:1.5rem
@@ -2297,11 +2283,6 @@ body{
   .md\:px-10{
     padding-left:2.5rem;
     padding-right:2.5rem
-  }
-
-  .md\:py-8{
-    padding-top:2rem;
-    padding-bottom:2rem
   }
 
   .md\:py-16{
