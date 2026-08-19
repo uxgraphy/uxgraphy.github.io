@@ -1,45 +1,123 @@
 // ============================================================
-//  Preloader (disabled)
+//  Preloader curtain
 // ============================================================
-// The loading-screen experience is turned off — the #preloader markup is
-// commented out in index.html / writeups.html, and #content now shows
-// immediately via CSS instead of waiting on this script. Kept here in case
-// it needs to come back.
+// The curtain is white and so is the page, so on a fast load it is literally
+// invisible — white, then content. Nothing flashes. What would flash is the
+// indicator drawn on it, so that is held back by INDICATOR_AFTER and only
+// ever appears when there is a genuine wait to report.
 //
-// const randomTexts = [
-//   "Just make it EXIST first. You can make it good later.",
-//   "Hang tight!",
-//   "Almost there!"
-// ];
+// Net effect: a visitor on a warm cache sees no loading UI at all. A visitor
+// on a cold phone connection gets real progress and something to read.
 //
-// document.getElementById('loading-text').textContent =
-//   randomTexts[Math.floor(Math.random() * randomTexts.length)];
-//
-// function revealContent() {
-//   const preloader = document.getElementById('preloader');
-//   const content = document.getElementById('content');
-//
-//   preloader.style.display = 'none';
-//   content.style.display = 'block';
-//   content.style.opacity = '1';
-//   content.style.transition = 'opacity 0.2s ease-in-out';
-//
-//   // Content was hidden while the preloader ran, so the browser's
-//   // automatic scroll-to-hash on load had nothing to scroll to. Do it now.
-//   if (window.location.hash) {
-//     const target = document.getElementById(window.location.hash.slice(1));
-//     if (target) target.scrollIntoView({ behavior: 'smooth' });
-//   }
-// }
-//
-// // The preloader exists to cover real loading time, not as a fixed-length
-// // animation. If the page (and its cached assets) are already loaded by the
-// // time this script runs, there's nothing to wait for, so skip it entirely.
-// if (document.readyState === 'complete') {
-//   revealContent();
-// } else {
-//   window.addEventListener('load', revealContent);
-// }
+// It waits on real assets — the web fonts, plus the images marked
+// data-critical because they sit above the fold — and lifts on the last one.
+// Deliberately NOT window.load: that also waits on the carousel images far
+// below the fold, which nobody is looking at yet.
+(function () {
+  var root = document.documentElement;
+  if (!root.classList.contains('is-loading')) return;
+
+  var preloader = document.getElementById('preloader');
+  var textEl = document.getElementById('loading-text');
+  var barEl = document.getElementById('loading-bar-fill');
+  if (!preloader || !textEl) {
+    root.classList.remove('is-loading');
+    return;
+  }
+
+  // Tied to real progress, not to a timer — "Almost there!" only appears
+  // when the page is, in fact, almost there.
+  var MESSAGES = [
+    'Just make it EXIST first. You can make it good later.',
+    'Hang tight!',
+    'Almost there!'
+  ];
+
+  var INDICATOR_AFTER = 250;  // below this there is nothing worth reporting
+  var MIN_SHOWN = 400;        // once shown, don't strobe it away
+  var MAX_WAIT = 6000;        // a stalled asset must never trap the visitor
+  var FADE = 200;             // keep in sync with #preloader.is-leaving in CSS
+
+  var total = 0;
+  var settled = 0;
+  var current = -1;
+  var shownAt = 0;
+  var lifted = false;
+
+  var indicatorTimer = setTimeout(function () {
+    shownAt = window.performance && performance.now ? performance.now() : 0;
+    preloader.classList.add('is-active');
+  }, INDICATOR_AFTER);
+
+  function paint() {
+    var ratio = total ? settled / total : 1;
+
+    if (barEl) barEl.style.transform = 'scaleX(' + ratio + ')';
+
+    var next = ratio < 0.34 ? 0 : ratio < 0.75 ? 1 : 2;
+    if (next === current) return;
+    current = next;
+
+    textEl.classList.add('is-swapping');
+    setTimeout(function () {
+      textEl.textContent = MESSAGES[next];
+      textEl.classList.remove('is-swapping');
+    }, textEl.textContent ? 150 : 0);
+  }
+
+  function done(fade) {
+    if (fade) {
+      preloader.classList.add('is-leaving');
+      setTimeout(function () { preloader.remove(); }, FADE + 50);
+    } else {
+      preloader.remove();
+    }
+    root.classList.remove('is-loading');
+    // Measurable in devtools: how long the curtain really lasted.
+    if (window.performance && performance.mark) performance.mark('curtain-lift');
+  }
+
+  function lift() {
+    if (lifted) return;
+    lifted = true;
+    clearTimeout(indicatorTimer);
+
+    // Never shown? Then nothing is on screen to fade, and no floor applies —
+    // the curtain comes off at the exact moment loading finished.
+    if (!shownAt) return done(false);
+
+    var visible = (window.performance && performance.now ? performance.now() : MIN_SHOWN) - shownAt;
+    setTimeout(function () { done(true); }, Math.max(0, MIN_SHOWN - visible));
+  }
+
+  function track(promise) {
+    total++;
+    promise.then(settle, settle);
+  }
+
+  function settle() {
+    settled++;
+    paint();
+    if (settled >= total) lift();
+  }
+
+  if (document.fonts && document.fonts.ready) track(document.fonts.ready);
+
+  Array.prototype.forEach.call(
+    document.querySelectorAll('img[data-critical]'),
+    function (img) {
+      track(new Promise(function (resolve) {
+        if (img.complete) return resolve();
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      }));
+    }
+  );
+
+  paint();
+  setTimeout(lift, MAX_WAIT);
+  if (!total) lift();
+})();
 
 // ============================================================
 //  Anchor scrolling

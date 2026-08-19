@@ -28,15 +28,22 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
   <link rel="stylesheet" href="assets/css/tailwind.css">
+  <script>
+    // Flag the curtain before first paint. Without JS this never runs, the
+    // class is never set, and #preloader stays display:none.
+    document.documentElement.className += ' is-loading';
+    // Failsafe: if app.js never loads, the curtain still clears itself.
+    setTimeout(function () {
+      document.documentElement.classList.remove('is-loading');
+    }, 5000);
+  </script>
 </head>
 
 <body>
-  <!-- Preloader experience disabled — see assets/js/app.js for details.
-  <div class="font-normal gap-4" id="preloader">
-    <span class="loadersmall"></span>
-    <span id="loading-text">Loading...</span>
+  <div id="preloader" role="status" aria-label="Loading">
+    <span id="loading-text" aria-hidden="true"></span>
+    <span id="loading-bar" aria-hidden="true"><span id="loading-bar-fill"></span></span>
   </div>
-  -->
 
   <div id="content">
     <!-- ===================== Header ===================== -->
@@ -58,6 +65,7 @@
     </header>
     <div id="menu-scrim" class="fixed inset-0 z-30 bg-black/80 md:hidden" aria-hidden="true"></div>
 
+    <main>
     <!-- ===================== Intro ===================== -->
     <div class="mx-auto w-full px-6 py-12 md:py-16" style="max-width: 1140px;">
       <div class="flex flex-wrap -mx-3 gap-y-4">
@@ -76,7 +84,7 @@
         </div>
         <div class="w-full md:w-5/12 px-3 text-left md:text-center relative self-center">
           <div class="overflow-hidden aspect-[1559/1426] w-full max-w-[396px] mx-auto" style="border-radius: 62% 38% 46% 54% / 55% 50% 50% 45%;">
-            <img class="w-full h-full object-cover object-[50%_54%]" src="assets/img/som-01.png" alt="Display picture">
+            <img class="w-full h-full object-cover object-[50%_54%]" data-critical width="567" height="668" decoding="async" src="assets/img/som-01.webp" alt="Display picture">
           </div>
         </div>
       </div>
@@ -100,7 +108,7 @@
             <div class="flex flex-wrap -mx-3 grow">
               <div class="w-full px-3">
                 <div class="h-full card-case-study flex flex-col">
-                  <div class="content-stack-01 brand-moengage"><a href="case-studies/03-reduce-cost-to-serve.pdf" target="_blank" rel="noopener noreferrer"><img src="assets/img/connector-thumbnail.png"></a></div>
+                  <div class="content-stack-01 brand-moengage"><a href="case-studies/03-reduce-cost-to-serve.pdf" target="_blank" rel="noopener noreferrer"><img data-critical width="712" height="503" decoding="async" src="assets/img/connector-thumbnail.webp" alt="Campaign Management Product case study"></a></div>
                   <div class="content-stack-02 grow">
                     <h6 class="truncate font-semibold mb-1">Campaign Management Product</h6>
                     <p>By MoEngage | B2B</p>
@@ -123,7 +131,7 @@
             <div class="flex flex-wrap -mx-3 grow">
               <div class="w-full md:w-6/12 px-3">
                 <div class="h-full card-case-study flex flex-col">
-                  <div class="content-stack-01 brand-tala"><a href="case-studies/01-design-for-clarity-trust.pdf" target="_blank" rel="noopener noreferrer"><img src="assets/img/payment.png"></a></div>
+                  <div class="content-stack-01 brand-tala"><a href="case-studies/01-design-for-clarity-trust.pdf" target="_blank" rel="noopener noreferrer"><img data-critical width="712" height="503" decoding="async" src="assets/img/payment.webp" alt="Lending Product case study"></a></div>
                   <div class="content-stack-02 grow">
                     <h6 class="font-semibold mb-1">Lending Product&nbsp;</h6>
                     <p>By Tala | B2C</p>
@@ -135,7 +143,7 @@
               </div>
               <div class="w-full md:w-6/12 px-3 mt-6 md:mt-0">
                 <div class="h-full card-case-study flex flex-col">
-                  <div class="content-stack-01 brand-okcredit"><a href="case-studies/02-design-for-credibility.pdf" target="_blank" rel="noopener noreferrer"><img src="assets/img/sign-up.png"></a></div>
+                  <div class="content-stack-01 brand-okcredit"><a href="case-studies/02-design-for-credibility.pdf" target="_blank" rel="noopener noreferrer"><img data-critical width="712" height="503" decoding="async" src="assets/img/sign-up.webp" alt="Accounting Product case study"></a></div>
                   <div class="content-stack-02 grow">
                     <h6 class="font-semibold mb-1">Accounting&nbsp;Product</h6>
                     <p>By OkCredit | B2B</p>
@@ -157,9 +165,9 @@
       <a class="cust-button" href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="1em" viewBox="0 0 24 24" width="1em" fill="currentColor" style="width: 28px;height: 28px;"><g><rect fill="none" height="24" width="24"></rect></g><g><polygon points="6,6 6,8 14.59,8 5,17.59 6.41,19 16,9.41 16,18 18,18 18,6"></polygon></g></svg><span>Take a Look</span></a>
       <div class="carousel" id="carousel-1">
         <div class="carousel-inner">
-          <div class="carousel-item active"><a href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><img class="img-fluid" width="1420" height="850" src="assets/img/ui-work-swoosh.png" alt="Slide Image"></a></div>
-          <div class="carousel-item"><a href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><img class="img-fluid" width="1420" height="850" src="assets/img/ui-work-commit-live.png" alt="Slide Image"></a></div>
-          <div class="carousel-item"><a href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><img class="img-fluid" width="1420" height="850" src="assets/img/ui-work-freshoo.png" alt="Slide Image"></a></div>
+          <div class="carousel-item active"><a href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><img class="img-fluid" width="1420" height="850" loading="lazy" decoding="async" src="assets/img/ui-work-swoosh.webp" alt="Slide Image"></a></div>
+          <div class="carousel-item"><a href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><img class="img-fluid" width="1420" height="850" loading="lazy" decoding="async" src="assets/img/ui-work-commit-live.webp" alt="Slide Image"></a></div>
+          <div class="carousel-item"><a href="case-studies/04-UI-work.pdf" target="_blank" rel="noopener noreferrer"><img class="img-fluid" width="1420" height="850" loading="lazy" decoding="async" src="assets/img/ui-work-freshoo.webp" alt="Slide Image"></a></div>
         </div>
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></button>
@@ -222,6 +230,7 @@
         </div>
       </div>
     </div>
+    </main>
   </div>
 
   <script src="assets/js/app.js"></script>
