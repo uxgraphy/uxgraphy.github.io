@@ -12,7 +12,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Google Sans Flex', 'sans-serif'],
       },
       keyframes: {
         nudge: {

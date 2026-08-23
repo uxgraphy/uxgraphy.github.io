@@ -126,11 +126,8 @@
           var label = LABELS[article.source] || '';
           return '' +
             '<a class="group flex items-start gap-3 py-3 px-3 -mx-3 rounded-lg no-underline hover:bg-[#f8f7f1] transition-colors" href="' + escapeHtml(article.link) + '" target="_blank" rel="noopener noreferrer">' +
-              '<span class="shrink-0 mt-0.5" title="' + label + '">' + icon + '</span>' +
-              '<span class="flex items-center gap-2 flex-wrap min-w-0">' +
-                '<span class="text-base font-normal text-[#212529] leading-[22px] underline decoration-dashed decoration-1 decoration-[#78716C] underline-offset-[6px] transition-colors group-hover:text-[#F44322] group-hover:decoration-solid group-hover:decoration-[#F44322]" style="font-family: \'Google Sans Flex\', system-ui, sans-serif;">' + escapeHtml(article.title) + '</span>' +
-                '<svg class="shrink-0 text-[#78716C] group-hover:text-[#F44322] transition-all duration-300 ease-out opacity-0 -translate-x-1.5 group-hover:opacity-100 group-hover:translate-x-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>' +
-              '</span>' +
+              '<span class="shrink-0 mt-0.5 relative -top-0.5" title="' + label + '">' + icon + '</span>' +
+              '<span class="relative -top-0.5 text-base font-normal text-[#212529] leading-[28px] underline decoration-dashed decoration-1 decoration-[#78716C] underline-offset-[6px] transition-colors min-w-0 group-hover:text-[#F44322] group-hover:decoration-[#F44322]">' + escapeHtml(article.title) + '</span>' +
             '</a>';
         }).join('');
 
