@@ -38,15 +38,15 @@ This session covers Task 1 only.
 1. ~~[x] `index.html` — add intro bullet~~
 
 ### Task 2: Mention "built with AI" in the footer
-1. [ ] `index.html` — mention built with AI in footer
-2. [ ] `writeups.html` — mention built with AI in footer
+1. ~~[x] `index.html` — mention built with AI in footer~~
+2. ~~[x] `writeups.html` — mention built with AI in footer~~
 
-### Task 3: "Built with AI" nav link + page
+### Task 3: "Built with AI" nav link + blank page
+To begin with, just a blank page: nav and footer present, no body content yet. Body content (project cards, data file) is a separate plan to be made later.
 1. [ ] `index.html` — add "Built with AI" nav link (desktop + mobile)
 2. [ ] `writeups.html` — add "Built with AI" nav link (desktop + mobile)
-3. [ ] `built-with-ai.html` (new) — nav, one placeholder project card, footer
-4. [ ] `assets/js/ai-projects-data.js` (new) — data array (`name`, `type`, `description`, `aiRole`, `url`) driving the listing, following the same pattern as `assets/js/articles-data.js` on `writeups.html`
-5. [ ] `tailwind.config.js` — add new page to `content` array
+3. [ ] `built-with-ai.html` (new) — nav + footer only, no body content
+4. [ ] `tailwind.config.js` — add new page to `content` array
 
 This file is the living task list for this initiative. When a task is done, mark it `~~struck through~~`. When a new task comes up ("hey, we need to do XYZ"), it gets added here as a new task block.
 

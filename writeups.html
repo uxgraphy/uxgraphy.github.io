@@ -77,8 +77,24 @@
       <div id="writeups-list" class="mx-auto w-full px-6 md:px-10 pt-6 pb-14" style="max-width: 1140px;"></div>
 
     </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="px-7 md:px-10 py-6 border-t border-[#efefef]">
+      <div class="mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left" style="max-width: 1140px;">
+        <a href="index.html" class="logo-link no-underline font-semibold text-base text-[#212529] hover:text-[#212529] whitespace-nowrap">Somnath <span class="text-[#FD6F00]">Nabajja</span></a>
+        <p class="m-0 text-base text-[#7a7570] flex items-center gap-2 justify-center sm:justify-end">
+          <span class="inline-flex items-center gap-1 font-medium text-[#212529] whitespace-nowrap">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="#DA7756"><rect x="10.75" y="1" width="2.5" height="7" rx="1.25"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" /><rect x="10.75" y="1" width="2.5" height="7" rx="1.25" transform="rotate(45 12 12)"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" transform="rotate(45 12 12)"/><rect x="10.75" y="1" width="2.5" height="7" rx="1.25" transform="rotate(90 12 12)"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" transform="rotate(90 12 12)"/><rect x="10.75" y="1" width="2.5" height="7" rx="1.25" transform="rotate(135 12 12)"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" transform="rotate(135 12 12)"/></g></svg>
+            Built with Claude
+          </span>
+          <span aria-hidden="true">|</span>
+          <span class="whitespace-nowrap">&copy;<span id="copy-year"></span></span>
+        </p>
+      </div>
+    </footer>
   </div>
 
+  <script>document.getElementById('copy-year').textContent = new Date().getFullYear();</script>
   <script src="assets/js/articles-data.js"></script>
   <script>
     (function () {

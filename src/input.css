@@ -133,7 +133,7 @@
 
   .logo-link {
     display: inline-block;
-    transition: transform 0.25s ease;
+    transition: transform 0.25s ease, color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center center;
   }
   .logo-link:hover { transform: scale(1.035); }
