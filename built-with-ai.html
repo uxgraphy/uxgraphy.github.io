@@ -104,6 +104,7 @@
           <a href="index.html#case-studies" class="font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Case Studies</a>
           <a href="writeups.html" class="font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Writeups</a>
           <a href="built-with-ai.html" class="font-medium text-sm text-[#FD6F00] border-b-2 border-[#FD6F00] pb-1 transition-colors">Built with AI</a>
+          <a href="career-tidbits.html" class="font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Career Tidbits</a>
         </div>
         <button id="nav-burger" class="md:hidden shrink-0" aria-label="Open menu" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -113,6 +114,7 @@
         <a href="index.html#case-studies" class="py-3 font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors">Case Studies</a>
         <a href="writeups.html" class="py-3 font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors">Writeups</a>
         <a href="built-with-ai.html" class="py-3 font-medium text-sm text-[#FD6F00] transition-colors">Built with AI</a>
+        <a href="career-tidbits.html" class="py-3 font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors">Career Tidbits</a>
       </div>
     </header>
     <div id="menu-scrim" class="fixed inset-0 z-30 bg-black/80 md:hidden" aria-hidden="true"></div>
@@ -265,10 +267,10 @@
           '  ' + icon +
           '  <div class="flex-1 min-w-0">' +
           '    <div class="flex flex-col items-start sm:flex-row sm:items-center gap-1 sm:gap-2 mb-0.5 flex-wrap">' +
-          '      <h3 class="font-semibold text-base mb-0">' + escapeHtml(entry.name) + '</h3>' +
+          '      <h3 class="font-semibold text-lg mb-0">' + escapeHtml(entry.name) + '</h3>' +
           '      <span class="text-xs font-medium rounded-full px-2 py-0.5" style="background:' + typeColor.bg + ';color:' + typeColor.text + '">' + escapeHtml(entry.type) + '</span>' +
           '    </div>' +
-          '    <p class="text-sm text-[rgb(90,96,102)] mb-0" style="max-width: 600px;">' + escapeHtml(entry.description) + '</p>' +
+          '    <p class="text-base text-[rgb(90,96,102)] mb-0" style="max-width: 600px;">' + escapeHtml(entry.description) + '</p>' +
           '  </div>' +
           '  <span aria-hidden="true" class="hidden sm:inline-flex shrink-0 text-[#212529] group-hover:text-[#FD6F00] transition-opacity opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100">' +
           '    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>' +

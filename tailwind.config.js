@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './writeups.html', './built-with-ai.html', './assets/js/**/*.js'],
+  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './assets/js/**/*.js'],
   theme: {
     // Match Bootstrap 5 breakpoints so responsive behavior stays identical
     screens: {
