@@ -68,6 +68,7 @@
   /* --- Extra component helpers --- */
 
   .list-unstyled { padding-left: 0; list-style: none; }
+  .intro-bullet { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 20px; height: 1.35em; }
   .card {
     position: relative;
     display: flex;
