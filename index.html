@@ -48,7 +48,7 @@
     <span id="loading-bar" aria-hidden="true"><span id="loading-bar-fill"></span></span>
   </div>
 
-  <div id="content">
+  <div id="content" class="min-h-screen flex flex-col">
     <!-- ===================== Header ===================== -->
     <header id="site-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#efefef]">
       <nav class="mx-auto w-full px-6 flex items-center justify-between py-7" style="max-width: 1140px;">
@@ -56,6 +56,7 @@
         <div class="hidden md:flex items-center gap-7">
           <a href="#case-studies" class="font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Case Studies</a>
           <a href="writeups.html" class="font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Writeups</a>
+          <a href="built-with-ai.html" class="font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Built with AI</a>
         </div>
         <button id="nav-burger" class="md:hidden shrink-0" aria-label="Open menu" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -64,11 +65,12 @@
       <div id="mobile-menu" class="md:hidden absolute top-full left-0 right-0 z-40 px-6 py-4 flex flex-col divide-y divide-[#efefef] border-b border-[#efefef] bg-white rounded-b-xl">
         <a href="#case-studies" class="py-3 font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors">Case Studies</a>
         <a href="writeups.html" class="py-3 font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors">Writeups</a>
+        <a href="built-with-ai.html" class="py-3 font-medium text-sm text-[#212529] hover:text-[#FD6F00] transition-colors">Built with AI</a>
       </div>
     </header>
     <div id="menu-scrim" class="fixed inset-0 z-30 bg-black/80 md:hidden" aria-hidden="true"></div>
 
-    <main>
+    <main class="flex-1">
     <!-- ===================== Intro ===================== -->
     <div class="mx-auto w-full px-6 py-12 md:py-16" style="max-width: 1140px;">
       <div class="flex flex-wrap -mx-3 gap-y-4">

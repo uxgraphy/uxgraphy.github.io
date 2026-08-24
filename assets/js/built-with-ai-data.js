@@ -1,0 +1,7 @@
+window.__BUILT_WITH_AI__ = [
+  { type: "Chrome extension", name: "Skimmet – Visual Hierarchy Tester", icon: "assets/img/built-with-ai/skimmet.png", description: "The squint test, automated: blur and grayscale a page to see if its visual hierarchy still reads. Popularized by Luke Wroblewski.", link: "https://chromewebstore.google.com/detail/skimmet-%E2%80%93-visual-hierarch/dffeegodhdokhgllonnnbgglbadcpkfd?hl=en" },
+  { type: "Chrome extension", name: "Design Teardown", icon: "assets/img/built-with-ai/design-teardown.png", description: "See how great designs are built, right on the page you are viewing.", link: "https://chromewebstore.google.com/detail/design-teardown/ihpbdgfnfljggdokpokpkpgihidbjnid?hl=en" },
+  { type: "Website", name: "Somnath Nabajja Portfolio", icon: "assets/img/built-with-ai/portfolio.png", description: "Originally hand-coded in Bootstrap, refactored with Claude and rebuilt in Tailwind CSS.", link: "https://uxgraphy.github.io/" },
+  { type: "Script", name: "Play Store Review Scraper", iconGlyph: "code", description: "Scrapes and downloads Play Store reviews in CSV. Pulls the last 6 months by default. Used for competitor research.", modal: true, scriptUrl: "assets/scripts/play-store-review-scraper.js" },
+  { type: "Website", name: "Clarity by Som", iconGlyph: "cbs", description: "Weekend 1:1 coaching for product designers on their PD, SPD, and LPD journeys. They learn to speak the language of metrics with PMs and execs.", link: "https://claritybysom.com/" }
+];
