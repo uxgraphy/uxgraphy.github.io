@@ -210,8 +210,15 @@ function RequestCaseStudy() {
   let timer = null;
 
   function show(index) {
-    current = (index + items.length) % items.length;
-    items.forEach((el, i) => el.classList.toggle('active', i === current));
+    const len = items.length;
+    current = (index + len) % len;
+    items.forEach((el, i) => {
+      const diff = ((i - current) % len + len) % len;
+      el.classList.remove('pos-active', 'pos-prev', 'pos-next');
+      if (diff === 0) el.classList.add('pos-active');
+      else if (diff === 1) el.classList.add('pos-next');
+      else el.classList.add('pos-prev');
+    });
     indicators.forEach((el, i) => el.classList.toggle('active', i === current));
   }
 
