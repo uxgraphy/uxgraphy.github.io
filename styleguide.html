@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Style Guide — Somnath Nabajja</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..900&display=swap">
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <style>
+    code.sg-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      background: #f8f7f1;
+      color: #7a7570;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .sg-table-wrap { overflow-x: auto; border: 1px solid #efefef; border-radius: 12px; }
+    table.sg-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    table.sg-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #7a7570;
+      padding: 12px 16px;
+      background: #f8f7f1;
+      border-bottom: 1px solid #efefef;
+      white-space: nowrap;
+    }
+    table.sg-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #efefef;
+      vertical-align: top;
+    }
+    table.sg-table tr:last-child td { border-bottom: none; }
+    table.sg-table td.sg-specimen { white-space: nowrap; }
+    .sg-swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid #efefef; flex-shrink: 0; }
+    .sg-toc a {
+      display: block;
+      padding: 6px 0;
+      color: #7a7570;
+      text-decoration: none;
+      font-size: 13px;
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+    }
+    .sg-toc a:hover { color: #1e1e1e; }
+    .sg-toc a.active { color: #1e1e1e; font-weight: 600; border-left-color: #FD6F00; }
+  </style>
+</head>
+
+<body class="bg-white">
+  <div class="min-h-screen flex flex-col">
+    <!-- ===================== Header ===================== -->
+    <header id="site-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#efefef]">
+      <nav class="mx-auto w-full px-6 flex items-center justify-between py-7" style="max-width: 1140px;">
+        <a href="index.html" class="logo-link font-semibold text-lg text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap">Somnath <span class="text-[#FD6F00]">Nabajja</span></a>
+        <div class="hidden md:flex items-center gap-2 text-sm">
+          <span class="font-semibold text-[#1e1e1e]">Style Guide</span>
+          <span class="text-[#7a7570]">— internal reference, not linked from main nav</span>
+        </div>
+      </nav>
+    </header>
+
+    <main class="text-[#1e1e1e] bg-white flex-1">
+
+      <!-- ===================== Intro ===================== -->
+      <div class="bg-[#f8f7f1] border-b border-[#efefef]">
+        <div class="mx-auto w-full px-6 py-10" style="max-width: 1140px;">
+          <h1 class="heading-1 mb-2">Style Guide</h1>
+          <p class="max-w-[620px] mb-0 text-sm text-[#7a7570]">Type, color, spacing, components — one page. Rendered from the real <code class="sg-code">src/input.css</code> classes, so it stays accurate. <strong class="text-[#1e1e1e]">Living doc:</strong> update it the moment a rule changes.</p>
+        </div>
+      </div>
+
+      <div class="mx-auto w-full px-6 py-10" style="max-width: 1140px;">
+        <div class="flex flex-col md:flex-row gap-10">
+
+          <!-- ===================== TOC sidebar ===================== -->
+          <aside class="md:w-[200px] shrink-0">
+            <nav class="sg-toc md:sticky" style="top: 100px;" aria-label="Section navigation">
+              <a href="#typography" data-section="typography">Typography</a>
+              <a href="#color" data-section="color">Color</a>
+              <a href="#spacing" data-section="spacing">Spacing &amp; Grouping</a>
+              <a href="#components" data-section="components">Components</a>
+              <a href="#guidelines" data-section="guidelines">Guidelines</a>
+            </nav>
+          </aside>
+
+          <!-- ===================== Content ===================== -->
+          <div class="flex-1 min-w-0">
+
+            <!-- ===================== Typography ===================== -->
+            <section id="typography" class="mb-14">
+              <p class="text-eyebrow text-[#7a7570] mb-2">01 — Foundations</p>
+              <h2 class="heading-2 mb-4">Typography</h2>
+              <p class="text-sm text-[#7a7570] mb-4">Base: 16px body. Every level below is a Major Third (×1.25) step. <strong class="text-[#1e1e1e]">Floor: nothing renders below 12px, anywhere.</strong></p>
+
+              <div class="sg-table-wrap">
+                <table class="sg-table">
+                  <thead>
+                    <tr>
+                      <th>Level</th>
+                      <th>Specimen</th>
+                      <th>Class</th>
+                      <th>Size (mobile → md)</th>
+                      <th>Weight</th>
+                      <th>Use for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Title</td>
+                      <td class="sg-specimen"><span class="heading-title" style="font-size:28px;">Aa</span></td>
+                      <td><code class="sg-code">.heading-title</code></td>
+                      <td><code class="sg-code">28 → 44px</code></td>
+                      <td>700</td>
+                      <td>Homepage hero only — one per site, not per page.</td>
+                    </tr>
+                    <tr>
+                      <td>H1</td>
+                      <td class="sg-specimen"><span class="heading-1" style="font-size:24px;">Aa</span></td>
+                      <td><code class="sg-code">.heading-1</code></td>
+                      <td><code class="sg-code">28 → 36px</code></td>
+                      <td>700</td>
+                      <td>Inner-page title. One per page.</td>
+                    </tr>
+                    <tr>
+                      <td>H2</td>
+                      <td class="sg-specimen"><span class="heading-2" style="font-size:20px;">Aa</span></td>
+                      <td><code class="sg-code">.heading-2</code></td>
+                      <td><code class="sg-code">20 → 26px</code></td>
+                      <td>600</td>
+                      <td>Section headers. Repeats up to 5× — stays lighter than H1 on purpose.</td>
+                    </tr>
+                    <tr>
+                      <td>H3</td>
+                      <td class="sg-specimen"><span class="heading-3">Aa</span></td>
+                      <td><code class="sg-code">.heading-3</code></td>
+                      <td><code class="sg-code">18 → 20px</code></td>
+                      <td>500</td>
+                      <td>Subheads under H1/Title, or small in-page headings.</td>
+                    </tr>
+                    <tr>
+                      <td>Body</td>
+                      <td class="sg-specimen"><span style="font-size:16px;">Aa</span></td>
+                      <td><code class="sg-code">unset (base)</code></td>
+                      <td><code class="sg-code">16px</code></td>
+                      <td>400</td>
+                      <td>Default paragraph text — the root of the scale.</td>
+                    </tr>
+                    <tr>
+                      <td>Meta</td>
+                      <td class="sg-specimen"><span style="font-size:14px;">Aa</span></td>
+                      <td><code class="sg-code">text-sm</code></td>
+                      <td><code class="sg-code">14px</code></td>
+                      <td>400–500</td>
+                      <td>Nav links, page-intro lines, buttons, card copy.</td>
+                    </tr>
+                    <tr>
+                      <td>Eyebrow</td>
+                      <td class="sg-specimen"><span class="text-eyebrow text-[#7a7570]">Aa</span></td>
+                      <td><code class="sg-code">.text-eyebrow</code></td>
+                      <td><code class="sg-code">13px</code></td>
+                      <td>700</td>
+                      <td>Category labels near a heading. Uppercase, 0.06em tracking. Never a CTA.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- ===================== Color ===================== -->
+            <section id="color" class="mb-14">
+              <p class="text-eyebrow text-[#7a7570] mb-2">02 — Foundations</p>
+              <h2 class="heading-2 mb-4">Color</h2>
+              <p class="text-sm text-[#7a7570] mb-4">Two near-blacks, full stop. Need a third gray? Reuse Ink or Muted instead — <code class="sg-code">#212529</code>, <code class="sg-code">#333</code>, and <code class="sg-code">rgb(90,96,102)</code> were all collapsed into these.</p>
+
+              <div class="sg-table-wrap">
+                <table class="sg-table">
+                  <thead>
+                    <tr>
+                      <th>Swatch</th>
+                      <th>Token</th>
+                      <th>Hex</th>
+                      <th>Use for</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><div class="sg-swatch" style="background:#1e1e1e;"></div></td>
+                      <td>Ink</td>
+                      <td><code class="sg-code">#1e1e1e</code></td>
+                      <td>Headings, body text, nav, buttons. The one primary black.</td>
+                    </tr>
+                    <tr>
+                      <td><div class="sg-swatch" style="background:#7a7570;"></div></td>
+                      <td>Muted</td>
+                      <td><code class="sg-code">#7a7570</code></td>
+                      <td>Subtitles, eyebrows, intro lines, footer meta. Never on CTAs.</td>
+                    </tr>
+                    <tr>
+                      <td><div class="sg-swatch" style="background:#FD6F00;"></div></td>
+                      <td>Accent</td>
+                      <td><code class="sg-code">#FD6F00</code></td>
+                      <td>Hover states, active nav link, name highlight.</td>
+                    </tr>
+                    <tr>
+                      <td><div class="sg-swatch" style="background:#f8f7f1;"></div></td>
+                      <td>Section ground</td>
+                      <td><code class="sg-code">#f8f7f1</code></td>
+                      <td>Alternating section background.</td>
+                    </tr>
+                    <tr>
+                      <td><div class="sg-swatch" style="background:#ffffff;"></div></td>
+                      <td>Page ground</td>
+                      <td><code class="sg-code">#ffffff</code></td>
+                      <td>Default page background, card surfaces.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- ===================== Spacing ===================== -->
+            <section id="spacing" class="mb-14">
+              <p class="text-eyebrow text-[#7a7570] mb-2">03 — Foundations</p>
+              <h2 class="heading-2 mb-4">Spacing &amp; Grouping</h2>
+
+              <div class="sg-table-wrap">
+                <table class="sg-table">
+                  <thead>
+                    <tr>
+                      <th>Pattern</th>
+                      <th>Value</th>
+                      <th>When</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Tight grouping</td>
+                      <td><code class="sg-code">~8px</code></td>
+                      <td>Heading + the line directly supporting it (subtitle, intro para). Signals "one idea."</td>
+                    </tr>
+                    <tr>
+                      <td>Eyebrow + heading</td>
+                      <td><code class="sg-code">8px</code></td>
+                      <td>Eyebrow sitting directly above its H2. Wrap both in their own tight group so they read as one unit, separate from the wider gap before the body content below.</td>
+                    </tr>
+                    <tr>
+                      <td>Section gap</td>
+                      <td><code class="sg-code">16 / 32 / 64px</code></td>
+                      <td>Scale the gap to how related the two sections are. <code class="sg-code">16px</code> for closely related groups (e.g. a card row directly under its intro). <code class="sg-code">32px</code> for a genuinely new group within the same page area. <code class="sg-code">64px</code> between distinct top-level sections of a page.</td>
+                    </tr>
+                    <tr>
+                      <td>Same-tone distance</td>
+                      <td><code class="sg-code">widen the gap</code></td>
+                      <td>Two same-color elements (e.g. H2 + button) 8px apart still read as cramped. Fix with space, not size.</td>
+                    </tr>
+                    <tr>
+                      <td>Container spacing</td>
+                      <td><code class="sg-code">padding-64-64 + gap-64</code></td>
+                      <td>Top-level section container: <code class="sg-code">pt-16 pb-16</code> for the outer edges, <code class="sg-code">gap-16</code> between sections. Spacing lives in one place, not split across the container and each section — sections carry no vertical padding of their own.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- ===================== Components ===================== -->
+            <section id="components" class="mb-14">
+              <p class="text-eyebrow text-[#7a7570] mb-2">04 — Components</p>
+              <h2 class="heading-2 mb-4">Components</h2>
+
+              <div class="sg-table-wrap">
+                <table class="sg-table">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th>Example</th>
+                      <th>Rule</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Eyebrow label</td>
+                      <td class="sg-specimen"><span class="text-eyebrow text-[#7a7570]">Analytics</span></td>
+                      <td><code class="sg-code">.text-eyebrow</code> + Muted color. Clickable? It's not an eyebrow — it's a button.</td>
+                    </tr>
+                    <tr>
+                      <td>Button / CTA</td>
+                      <td class="sg-specimen"><a class="cust-button" href="#" onclick="return false;" style="margin-top:0;"><span>Take a Look</span></a></td>
+                      <td>Always Ink, never Muted. Cramped against a heading? Fix with spacing, not color.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- ===================== Guidelines ===================== -->
+            <section id="guidelines">
+              <p class="text-eyebrow text-[#7a7570] mb-2">05 — Rules of thumb</p>
+              <h2 class="heading-2 mb-4">Guidelines</h2>
+
+              <div class="sg-table-wrap">
+                <table class="sg-table">
+                  <tbody>
+                    <tr>
+                      <td style="width:220px;"><strong>Size + weight = hierarchy</strong></td>
+                      <td>Title/H1 = 700, H2 = 600, H3 = 500. Don't flatten weight even when size differs.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Muted ≠ actionable</strong></td>
+                      <td>Muted recedes. Buttons and CTAs stay Ink, always.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>12px floor</strong></td>
+                      <td>No exceptions — tooltips and hover text included.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Two grays only</strong></td>
+                      <td>Reuse Ink or Muted before adding a third.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Group tight, break wide</strong></td>
+                      <td>~8px = "these belong together." 24px+ = "new group."</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Keep this page live</strong></td>
+                      <td>Rule changes anywhere → update the matching row here, same pass.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="py-6 border-t border-[#efefef]">
+      <div class="mx-auto w-full px-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left" style="max-width: 1140px;">
+        <a href="index.html" class="logo-link no-underline font-semibold text-base text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap">Somnath <span class="text-[#FD6F00]">Nabajja</span></a>
+        <p class="m-0 text-base text-[#7a7570] flex items-center gap-2 justify-center sm:justify-end">
+          <span class="whitespace-nowrap">Internal reference — not part of public navigation</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.sg-toc a'));
+      var sections = links.map(function (a) { return document.getElementById(a.dataset.section); });
+
+      function onScroll() {
+        var pos = window.scrollY + 140;
+        var activeIndex = 0;
+        sections.forEach(function (sec, i) {
+          if (sec && sec.offsetTop <= pos) activeIndex = i;
+        });
+        links.forEach(function (a, i) { a.classList.toggle('active', i === activeIndex); });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+
+</html>
