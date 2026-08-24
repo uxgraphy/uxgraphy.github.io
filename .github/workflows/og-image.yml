@@ -1,0 +1,51 @@
+name: Regenerate OG image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "assets/css/**"
+      - "assets/img/som-01.webp"
+      - "scripts/generate-og-image.js"
+      - ".github/workflows/og-image.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  og-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --no-save playwright sharp serve wait-on
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Serve site
+        run: npx serve -l 4173 . &
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:4173
+
+      - name: Generate OG image
+        run: node scripts/generate-og-image.js http://localhost:4173 assets/img/og-image.png
+
+      - name: Commit if changed
+        run: |
+          if ! git diff --quiet -- assets/img/og-image.png; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add assets/img/og-image.png
+            git commit -m "chore: regenerate OG image [skip ci]"
+            git push
+          else
+            echo "OG image unchanged, skipping commit."
+          fi
