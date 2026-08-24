@@ -129,12 +129,11 @@
     padding: 16px;
     text-decoration: none;
     color: #1e1e1e;
-    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    transition: border-color .2s ease, transform .2s ease;
   }
   .cs-card:hover {
-    border-color: #F44322;
-    box-shadow: 0 16px 32px -12px rgba(28, 25, 23, .14);
-    transform: translateY(-2px);
+    border-color: rgba(253, 111, 0, .3);
+    transform: translateY(-4px);
   }
   .cs-thumb { border-radius: 16px; overflow: hidden; display: block; flex-shrink: 0; }
   .cs-thumb img { max-width: 100%; display: block; }
