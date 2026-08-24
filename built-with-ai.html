@@ -37,6 +37,46 @@
     #script-modal-code .tok-num { color: #b5cea8; }
     #script-modal-code .tok-kw { color: #569cd6; }
     #script-modal-code .tok-fn { color: #dcdcaa; }
+
+    /* Styled tooltip for the AI tool logos, replaces the native title tooltip. */
+    .ai-tool-tip { position: relative; display: inline-flex; }
+    .ai-tool-tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+      background: #212529;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 4px 8px;
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .15s, transform .15s;
+      z-index: 10;
+    }
+    .ai-tool-tip::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+      border: 5px solid transparent;
+      border-bottom-color: #212529;
+      margin-top: -2px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .15s, transform .15s;
+      z-index: 10;
+    }
+    .ai-tool-tip:hover::after, .ai-tool-tip:hover::before,
+    .ai-tool-tip:focus-visible::after, .ai-tool-tip:focus-visible::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   </style>
   <script>
     // Flag the curtain before first paint. Without JS this never runs, the
@@ -301,7 +341,9 @@
       if (!container) return;
 
       container.innerHTML = tools.map(function (tool) {
-        return '<img src="' + tool.logo + '" alt="' + tool.name + '" title="' + tool.name + '" class="w-6 h-6 object-contain shrink-0">';
+        return '<span class="ai-tool-tip" data-tip="' + tool.name + '" tabindex="0">' +
+          '<img src="' + tool.logo + '" alt="' + tool.name + '" class="w-6 h-6 object-contain shrink-0">' +
+          '</span>';
       }).join('');
     })();
   </script>

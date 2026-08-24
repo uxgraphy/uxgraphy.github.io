@@ -9,8 +9,10 @@ window.__AI_TOOLS__ = [
   { name: "ChatGPT", logo: "assets/img/built-with-ai/stack/chatgpt.svg" },
   { name: "Gemini", logo: "assets/img/built-with-ai/stack/gemini.svg" },
   { name: "Figma", logo: "assets/img/built-with-ai/stack/figma.svg" },
-  { name: "Fireflies.ai", logo: "assets/img/built-with-ai/stack/fireflies.svg" },
-  { name: "Fathom", logo: "assets/img/built-with-ai/stack/fathom.svg" },
+  { name: "Mermaid.ai", logo: "assets/img/built-with-ai/stack/mermaid.svg" },
   { name: "Wispr Flow", logo: "assets/img/built-with-ai/stack/wispr-flow.svg" },
-  { name: "Notion AI", logo: "assets/img/built-with-ai/stack/notion.svg" }
+  { name: "Notion AI", logo: "assets/img/built-with-ai/stack/notion.svg" },
+  // Notetakers kept last.
+  { name: "Fireflies.ai", logo: "assets/img/built-with-ai/stack/fireflies.svg" },
+  { name: "Fathom", logo: "assets/img/built-with-ai/stack/fathom.svg" }
 ];
