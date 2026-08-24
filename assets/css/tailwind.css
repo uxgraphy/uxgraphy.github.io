@@ -843,11 +843,6 @@ svg {
   margin-right:12px
 }
 
-.card-strategy .content-stack-02{
-  padding:0 24px 24px;
-  background:#eaeae1
-}
-
 body{
   font-family:'Google Sans Flex',sans-serif
 }
@@ -861,18 +856,6 @@ body{
   opacity:1
 }
 
-.card-case-study .content-stack-02{
-  border:1px solid #e8e8e8;
-  border-width:0 1px;
-  padding:24px
-}
-
-.card-case-study{
-  background:#fff;
-  border-radius:16px;
-  overflow:hidden
-}
-
 .brand-okcredit{
   background:#699e6b
 }
@@ -883,26 +866,6 @@ body{
 
 .brand-moengage{
   background:#7592da
-}
-
-.card-case-study .content-stack-01 a{
-  display:block
-}
-
-.card-case-study .content-stack-01 img{
-  max-width:100%
-}
-
-.container-case-study .subheading{
-  margin-bottom:32px;
-  border-bottom:1px solid #bdbdbd;
-  padding:0 0 12px
-}
-
-.case-study-card .content-stack-02{
-  padding:24px;
-  border:1px solid #e8e8e8;
-  border-width:0 1px
 }
 
 .list-unstyled li{
@@ -939,10 +902,6 @@ body{
     padding-top:0
   }
 
-  .case-study-card.inbetweens{
-    margin:0
-  }
-
   .container-intro{
     margin-top:68px;
     margin-bottom:76px
@@ -977,33 +936,7 @@ body{
   border-bottom-color:#000
 }
 
-.case-study-card-button{
-  display:block;
-  background:#1e1e1e;
-  color:#fff;
-  font-size:16px;
-  font-weight:500;
-  padding:20px 24px;
-  text-decoration:none;
-  text-transform:uppercase;
-  transition:background .2s ease
-}
-
-.case-study-card-button.disabled{
-  background:#888;
-  cursor:not-allowed
-}
-
-.case-study-card-button.disabled:hover{
-  background:#888
-}
-
-.case-study-card-button:hover{
-  background:#000;
-  color:#fff
-}
-
-.case-study-card-button svg,.cust-button svg{
+.cust-button svg{
   display:inline-block;
   vertical-align:middle
 }
@@ -1052,6 +985,146 @@ body{
 }
 
 /* --- Extra component helpers --- */
+
+/* Eyebrow label with a rule running through the same line, continuing
+     past the label to the edge of its column. */
+
+.container-case-study .subheading {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.container-case-study .subheading-label {
+  position: relative;
+  display: inline-block;
+  padding-left: 32px;
+}
+
+.container-case-study .subheading-label svg {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.container-case-study .subheading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #d6d6d6;
+}
+
+/* Case study card: framed thumbnail, Product/Impact eyebrow pairs,
+     full-width tinted CTA. The whole card is the link — the CTA is a
+     styled span, not a nested anchor. */
+
+.cs-card, .cs-card:hover, .cs-card:visited {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid #efefef;
+  border-radius: 24px;
+  padding: 16px;
+  text-decoration: none;
+  color: #1e1e1e;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.cs-card:hover {
+  border-color: #F44322;
+  box-shadow: 0 16px 32px -12px rgba(28, 25, 23, .14);
+  transform: translateY(-2px);
+}
+
+.cs-thumb {
+  border-radius: 16px;
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;
+}
+
+.cs-thumb img {
+  max-width: 100%;
+  display: block;
+}
+
+.cs-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cs-eyebrow-label {
+  font-family: 'Google Sans Flex', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #7a7570;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cs-title {
+  font-size: 18px;
+  margin: 0 0 2px;
+}
+
+.cs-meta {
+  color: #7a7570;
+  font-size: 14px;
+  margin: 0;
+}
+
+.cs-divider {
+  height: 1px;
+  background: #f0eeea;
+  flex-shrink: 0;
+}
+
+.cs-impact-headline {
+  font-family: 'Google Sans Flex', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #1e1e1e;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.cs-desc {
+  margin: 6px 0 0;
+  color: #57534e;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cs-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: auto;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: 'Google Sans Flex', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #F44322;
+  background: rgba(244, 67, 34, .08);
+  border: 1px solid rgba(244, 67, 34, .2);
+  border-radius: 999px;
+  padding: 10px 18px;
+  transition: background .2s ease;
+}
+
+.cs-card:hover .cs-cta {
+  background: rgba(244, 67, 34, .16);
+}
 
 .list-unstyled {
   padding-left: 0;
@@ -1287,10 +1360,6 @@ body{
   margin-bottom: 0.125rem;
 }
 
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -1309,6 +1378,10 @@ body{
 
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .mt-0\.5 {
@@ -1355,12 +1428,24 @@ body{
   aspect-ratio: 1559/1426;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .h-12 {
   height: 3rem;
 }
 
+.h-14 {
+  height: 3.5rem;
+}
+
 .h-6 {
   height: 1.5rem;
+}
+
+.h-9 {
+  height: 2.25rem;
 }
 
 .h-full {
@@ -1375,12 +1460,20 @@ body{
   min-height: 100vh;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
 .w-12 {
   width: 3rem;
 }
 
 .w-6 {
   width: 1.5rem;
+}
+
+.w-9 {
+  width: 2.25rem;
 }
 
 .w-\[2px\] {
@@ -1405,6 +1498,10 @@ body{
 
 .max-w-\[620px\] {
   max-width: 620px;
+}
+
+.max-w-\[640px\] {
+  max-width: 640px;
 }
 
 .flex-1 {
@@ -1616,14 +1713,14 @@ body{
   border-color: rgb(60 60 60 / var(--tw-border-opacity, 1));
 }
 
+.border-\[\#F44322\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(244 67 34 / var(--tw-border-opacity, 1));
+}
+
 .border-\[\#FD6F00\] {
   --tw-border-opacity: 1;
   border-color: rgb(253 111 0 / var(--tw-border-opacity, 1));
-}
-
-.border-\[\#bdbdbd\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(189 189 189 / var(--tw-border-opacity, 1));
 }
 
 .border-\[\#efefef\] {
@@ -1638,6 +1735,11 @@ body{
 .bg-\[\#1e1e1e\] {
   --tw-bg-opacity: 1;
   background-color: rgb(30 30 30 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#F44322\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 67 34 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[\#FD6F00\] {
@@ -1662,6 +1764,10 @@ body{
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-white\/25 {
+  background-color: rgb(255 255 255 / 0.25);
 }
 
 .bg-white\/95 {
@@ -1711,9 +1817,19 @@ body{
   padding-right: 1.5rem;
 }
 
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
 .py-0\.5 {
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
 }
 
 .py-10 {
@@ -1755,10 +1871,6 @@ body{
   padding-bottom: 0.25rem;
 }
 
-.pb-14 {
-  padding-bottom: 3.5rem;
-}
-
 .pb-16 {
   padding-bottom: 4rem;
 }
@@ -1771,24 +1883,24 @@ body{
   padding-left: 1rem;
 }
 
+.pl-\[0\.8125rem\] {
+  padding-left: 0.8125rem;
+}
+
 .pr-3 {
   padding-right: 0.75rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .pr-6 {
   padding-right: 1.5rem;
 }
 
-.pt-12 {
-  padding-top: 3rem;
-}
-
 .pt-16 {
   padding-top: 4rem;
-}
-
-.pt-6 {
-  padding-top: 1.5rem;
 }
 
 .text-left {
@@ -1807,8 +1919,20 @@ body{
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-.text-\[19px\] {
-  font-size: 19px;
+.font-sans {
+  font-family: Google Sans Flex, sans-serif;
+}
+
+.text-\[0\.875rem\] {
+  font-size: 0.875rem;
+}
+
+.text-\[0\.9375rem\] {
+  font-size: 0.9375rem;
+}
+
+.text-\[1\.375rem\] {
+  font-size: 1.375rem;
 }
 
 .text-base {
@@ -1826,13 +1950,14 @@ body{
   line-height: 1.25rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.font-bold {
-  font-weight: 700;
 }
 
 .font-medium {
@@ -1859,6 +1984,11 @@ body{
   line-height: 1.625;
 }
 
+.text-\[\#1C1917\] {
+  --tw-text-opacity: 1;
+  color: rgb(28 25 23 / var(--tw-text-opacity, 1));
+}
+
 .text-\[\#1e1e1e\] {
   --tw-text-opacity: 1;
   color: rgb(30 30 30 / var(--tw-text-opacity, 1));
@@ -1879,6 +2009,11 @@ body{
   color: rgb(157 165 180 / var(--tw-text-opacity, 1));
 }
 
+.text-\[\#F44322\] {
+  --tw-text-opacity: 1;
+  color: rgb(244 67 34 / var(--tw-text-opacity, 1));
+}
+
 .text-\[\#FD6F00\] {
   --tw-text-opacity: 1;
   color: rgb(253 111 0 / var(--tw-text-opacity, 1));
@@ -1889,16 +2024,17 @@ body{
   color: rgb(212 212 212 / var(--tw-text-opacity, 1));
 }
 
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
 .underline {
   text-decoration-line: underline;
 }
 
 .no-underline {
   text-decoration-line: none;
-}
-
-.decoration-\[\#78716C\] {
-  text-decoration-color: #78716C;
 }
 
 .decoration-\[\#7a7570\] {
@@ -1919,6 +2055,17 @@ body{
 
 .opacity-0 {
   opacity: 0;
+}
+
+.ring-2 {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-white {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity, 1));
 }
 
 .blur {
@@ -2078,6 +2225,19 @@ body{
   border-color: rgb(253 111 0 / 0.3);
 }
 
+.hover\:bg-\[\#F44322\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 67 34 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-\[\#F44322\]\/10:hover {
+  background-color: rgb(244 67 34 / 0.1);
+}
+
+.hover\:bg-\[\#F44322\]\/90:hover {
+  background-color: rgb(244 67 34 / 0.9);
+}
+
 .hover\:bg-\[\#FD6F00\]\/5:hover {
   background-color: rgb(253 111 0 / 0.05);
 }
@@ -2095,6 +2255,11 @@ body{
 .hover\:text-\[\#FD6F00\]:hover {
   --tw-text-opacity: 1;
   color: rgb(253 111 0 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .focus-visible\:outline-none:focus-visible {
@@ -2127,18 +2292,9 @@ body{
   background-color: rgb(253 111 0 / 0.1);
 }
 
-.group:hover .group-hover\:text-\[\#F44322\] {
-  --tw-text-opacity: 1;
-  color: rgb(244 67 34 / var(--tw-text-opacity, 1));
-}
-
 .group:hover .group-hover\:text-\[\#FD6F00\] {
   --tw-text-opacity: 1;
   color: rgb(253 111 0 / var(--tw-text-opacity, 1));
-}
-
-.group:hover .group-hover\:decoration-\[\#F44322\] {
-  text-decoration-color: #F44322;
 }
 
 .group:hover .group-hover\:decoration-\[\#FD6F00\] {
