@@ -1122,7 +1122,7 @@ body{
   transition: background .2s ease;
 }
 
-.cs-card:hover .cs-cta {
+.cs-cta:hover {
   background: rgba(244, 67, 34, .16);
 }
 
