@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './assets/js/**/*.js'],
+  // styleguide.html is gitignored (local-only, never deployed) but still
+  // needs its Tailwind classes compiled — safe to list even when absent,
+  // Tailwind just finds no content there (e.g. on a fresh clone/CI).
+  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './styleguide.html', './assets/js/**/*.js'],
   theme: {
     // Match Bootstrap 5 breakpoints so responsive behavior stays identical
     screens: {

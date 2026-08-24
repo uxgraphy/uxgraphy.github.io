@@ -558,7 +558,7 @@ video {
   --bs-primary: #0d6efd;
   --bs-primary-rgb: 13, 110, 253;
   --bs-white: #fff;
-  --bs-dark: #212529;
+  --bs-dark: #1e1e1e;
 }
 
 html {
@@ -587,7 +587,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  color: #1e1e1e;
   text-align: left;
   background-color: #fff;
 }
@@ -640,6 +640,63 @@ h6 {
   h4 {
     font-size: 1.5rem;
   }
+}
+
+/* Typescale — Major Third (x1.25) steps off the 16px body base.
+     Fixed px per breakpoint (no fluid clamp), switching at md (768px). */
+
+.heading-title, .heading-1, .heading-2, .heading-3 {
+  letter-spacing: -0.015em;
+  color: #1e1e1e;
+}
+
+.heading-title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.heading-1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.heading-2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.heading-3 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .heading-title {
+    font-size: 44px;
+  }
+
+  .heading-1 {
+    font-size: 36px;
+  }
+
+  .heading-2 {
+    font-size: 26px;
+  }
+
+  .heading-3 {
+    font-size: 20px;
+  }
+}
+
+.text-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 p {
@@ -768,18 +825,18 @@ svg {
 }
 
 #more-about-me .card-body a{
-  color:#333;
+  color:#1e1e1e;
   text-transform:uppercase;
   text-decoration:none;
-  border-bottom:1px dashed #333;
+  border-bottom:1px dashed #1e1e1e;
   font-weight:500;
   font-size:14px;
   transition:border-color .2s ease
 }
 
 #more-about-me .card-body a:not(.bs-icon):hover{
-  color:#333;
-  border-bottom-color:#222
+  color:#1e1e1e;
+  border-bottom-color:#000
 }
 
 .more-about-me-link a{
@@ -796,7 +853,7 @@ body{
 }
 
 /* Preloader experience disabled — see assets/js/app.js.
-#preloader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:9999;font-family:Arial,sans-serif;font-size:24px;color:#333}
+#preloader{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:9999;font-family:Arial,sans-serif;font-size:24px;color:#1e1e1e}
 */
 
 #content{
@@ -898,7 +955,7 @@ body{
 }
 
 .cust-button{
-  color:#333;
+  color:#1e1e1e;
   text-decoration:none;
   text-transform:uppercase;
   font-weight:500;
@@ -908,21 +965,21 @@ body{
 
 .cust-button span{
   display:inline-block;
-  border-bottom:1px dashed #333;
+  border-bottom:1px dashed #1e1e1e;
   transition:border-color .2s ease
 }
 
 .cust-button:hover{
-  color:#333
+  color:#1e1e1e
 }
 
 .cust-button:hover span{
-  border-bottom-color:#222
+  border-bottom-color:#000
 }
 
 .case-study-card-button{
   display:block;
-  background:#333;
+  background:#1e1e1e;
   color:#fff;
   font-size:16px;
   font-weight:500;
@@ -942,7 +999,7 @@ body{
 }
 
 .case-study-card-button:hover{
-  background:#222;
+  background:#000;
   color:#fff
 }
 
@@ -1144,6 +1201,10 @@ body{
   visibility: hidden;
 }
 
+.collapse {
+  visibility: collapse;
+}
+
 .static {
   position: static;
 }
@@ -1234,6 +1295,10 @@ body{
   margin-bottom: 3rem;
 }
 
+.mb-14 {
+  margin-bottom: 3.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1276,6 +1341,10 @@ body{
 
 .inline-flex {
   display: inline-flex;
+}
+
+.table {
+  display: table;
 }
 
 .hidden {
@@ -1342,6 +1411,10 @@ body{
   flex: 1 1 0%;
 }
 
+.flex-shrink {
+  flex-shrink: 1;
+}
+
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -1352,6 +1425,10 @@ body{
 
 .grow-0 {
   flex-grow: 0;
+}
+
+.border-collapse {
+  border-collapse: collapse;
 }
 
 .transform {
@@ -1400,6 +1477,14 @@ body{
   gap: 0.25rem;
 }
 
+.gap-10 {
+  gap: 2.5rem;
+}
+
+.gap-16 {
+  gap: 4rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -1416,8 +1501,16 @@ body{
   gap: 1.5rem;
 }
 
+.gap-64 {
+  gap: 16rem;
+}
+
 .gap-7 {
   gap: 1.75rem;
+}
+
+.gap-8 {
+  gap: 2rem;
 }
 
 .gap-y-4 {
@@ -1674,10 +1767,6 @@ body{
   padding-bottom: 0.75rem;
 }
 
-.pb-8 {
-  padding-bottom: 2rem;
-}
-
 .pl-4 {
   padding-left: 1rem;
 }
@@ -1702,10 +1791,6 @@ body{
   padding-top: 1.5rem;
 }
 
-.pt-8 {
-  padding-top: 2rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1720,15 +1805,6 @@ body{
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.text-\[0\.6875rem\] {
-  font-size: 0.6875rem;
 }
 
 .text-\[19px\] {
@@ -1783,18 +1859,9 @@ body{
   line-height: 1.625;
 }
 
-.tracking-\[0\.18em\] {
-  letter-spacing: 0.18em;
-}
-
 .text-\[\#1e1e1e\] {
   --tw-text-opacity: 1;
   color: rgb(30 30 30 / var(--tw-text-opacity, 1));
-}
-
-.text-\[\#212529\] {
-  --tw-text-opacity: 1;
-  color: rgb(33 37 41 / var(--tw-text-opacity, 1));
 }
 
 .text-\[\#6e7681\] {
@@ -1822,16 +1889,6 @@ body{
   color: rgb(212 212 212 / var(--tw-text-opacity, 1));
 }
 
-.text-\[rgb\(33\2c 37\2c 41\)\] {
-  --tw-text-opacity: 1;
-  color: rgb(33 37 41 / var(--tw-text-opacity, 1));
-}
-
-.text-\[rgb\(90\2c 96\2c 102\)\] {
-  --tw-text-opacity: 1;
-  color: rgb(90 96 102 / var(--tw-text-opacity, 1));
-}
-
 .underline {
   text-decoration-line: underline;
 }
@@ -1842,6 +1899,10 @@ body{
 
 .decoration-\[\#78716C\] {
   text-decoration-color: #78716C;
+}
+
+.decoration-\[\#7a7570\] {
+  text-decoration-color: #7a7570;
 }
 
 .decoration-dashed {
@@ -1922,7 +1983,7 @@ body{
   align-items: center;
   gap: 20px;
   background: #fff;
-  color: #212529;
+  color: #1e1e1e;
 }
 
 .is-loading #preloader {
@@ -2026,9 +2087,9 @@ body{
   background-color: rgb(248 247 241 / var(--tw-bg-opacity, 1));
 }
 
-.hover\:text-\[\#212529\]:hover {
+.hover\:text-\[\#1e1e1e\]:hover {
   --tw-text-opacity: 1;
-  color: rgb(33 37 41 / var(--tw-text-opacity, 1));
+  color: rgb(30 30 30 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-\[\#FD6F00\]:hover {
@@ -2080,6 +2141,10 @@ body{
   text-decoration-color: #F44322;
 }
 
+.group:hover .group-hover\:decoration-\[\#FD6F00\] {
+  text-decoration-color: #FD6F00;
+}
+
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
 }
@@ -2123,6 +2188,10 @@ body{
 }
 
 @media (min-width: 768px) {
+  .md\:sticky {
+    position: sticky;
+  }
+
   .md\:order-first {
     order: -9999;
   }
@@ -2165,6 +2234,10 @@ body{
 
   .md\:w-8\/12 {
     width: 66.666667%;
+  }
+
+  .md\:w-\[200px\] {
+    width: 200px;
   }
 
   .md\:flex-row {
