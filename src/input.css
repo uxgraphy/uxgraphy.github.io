@@ -138,7 +138,7 @@
   .cs-card:has(.brand-zluri) { --brand-hue: 260.5; }
   .cs-card:hover {
     border-color: oklch(0.8 0.09 var(--brand-hue, 50));
-    background: oklch(0.985 0.01 var(--brand-hue, 50));
+    background: oklch(0.992 0.006 var(--brand-hue, 50));
   }
   /* Flat neutral canvas, image at native aspect seated on the bottom edge with a
      faint bottom-only gradient for depth. Ported from card-thumb-harmony.html (Light v4).
@@ -246,12 +246,12 @@
     font-weight: 500;
     font-size: 14px;
     color: #F44322;
-    background: rgba(244, 67, 34, .08);
+    background: #FEF0ED;
     border-radius: 999px;
     padding: 10px 18px;
     transition: background .2s ease;
   }
-  .cs-cta:hover { background: rgba(244, 67, 34, .16); }
+  .cs-cta:hover { background: #FDE1DC; }
 
   /* Desktop: one card per row, image left, details right. Below lg the card stays
      stacked (two per row at tablet, one per row on phones via the grid columns). */
