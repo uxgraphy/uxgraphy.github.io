@@ -3,7 +3,7 @@ module.exports = {
   // styleguide.html is gitignored (local-only, never deployed) but still
   // needs its Tailwind classes compiled — safe to list even when absent,
   // Tailwind just finds no content there (e.g. on a fresh clone/CI).
-  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './styleguide.html', './assets/js/**/*.js'],
+  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './styleguide.html', './pdf-viewer.html', './assets/js/**/*.js'],
   theme: {
     // Match Bootstrap 5 breakpoints so responsive behavior stays identical
     screens: {
@@ -14,6 +14,18 @@ module.exports = {
       xxl: '1400px',
     },
     extend: {
+      // Major second (1.125) type scale, base 16px = 1rem; used by pdf-viewer.html
+      fontSize: {
+        'ms-n7': '0.4387rem',
+        'ms-n2': '0.79rem',
+        'ms-0': '1.0rem',
+        'ms-1': '1.125rem',
+        'ms-2': '1.2656rem',
+        'ms-3': '1.4238rem',
+        'ms-4': '1.6019rem',
+        'ms-6': '2.0275rem',
+        'ms-10': '3.2475rem',
+      },
       fontFamily: {
         sans: ['Google Sans Flex', 'sans-serif'],
       },
