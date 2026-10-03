@@ -16,15 +16,15 @@ module.exports = {
     extend: {
       // Major second (1.125) type scale, base 16px = 1rem; used by pdf-viewer.html
       fontSize: {
-        'ms-n7': '0.4387rem',
-        'ms-n2': '0.79rem',
+        'ms-n3': '0.6875rem',
+        'ms-n2': '0.8125rem',
         'ms-0': '1.0rem',
         'ms-1': '1.125rem',
-        'ms-2': '1.2656rem',
-        'ms-3': '1.4238rem',
-        'ms-4': '1.6019rem',
-        'ms-6': '2.0275rem',
-        'ms-10': '3.2475rem',
+        'ms-2': '1.25rem',
+        'ms-3': '1.4375rem',
+        'ms-4': '1.625rem',
+        'ms-6': '2rem',
+        'ms-10': '3.25rem',
       },
       fontFamily: {
         sans: ['Google Sans Flex', 'sans-serif'],
