@@ -16,7 +16,6 @@ module.exports = {
     extend: {
       // Major second (1.125) type scale, base 16px = 1rem; used by pdf-viewer.html
       fontSize: {
-        'ms-n3': '0.75rem',
         'ms-n2': '0.75rem',
         'ms-0': '1.0rem',
         'ms-2': '1.25rem',
