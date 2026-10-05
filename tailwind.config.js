@@ -3,7 +3,7 @@ module.exports = {
   // styleguide.html is gitignored (local-only, never deployed) but still
   // needs its Tailwind classes compiled — safe to list even when absent,
   // Tailwind just finds no content there (e.g. on a fresh clone/CI).
-  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './styleguide.html', './pdf-viewer.html', './assets/js/**/*.js'],
+  content: ['./index.html', './writeups.html', './built-with-ai.html', './career-tidbits.html', './styleguide.html', './case-studies/design-for-productivity.html', './assets/js/**/*.js'],
   theme: {
     // Match Bootstrap 5 breakpoints so responsive behavior stays identical
     screens: {
@@ -14,7 +14,7 @@ module.exports = {
       xxl: '1400px',
     },
     extend: {
-      // Major second (1.125) type scale, base 16px = 1rem; used by pdf-viewer.html
+      // Major second (1.125) type scale, base 16px = 1rem; used by case-studies/design-for-productivity.html
       fontSize: {
         'ms-n2': '0.75rem',
         'ms-0': '1.0rem',
