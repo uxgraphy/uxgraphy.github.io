@@ -64,20 +64,20 @@
       <nav class="mx-auto w-full px-6 flex items-center justify-between py-7" style="max-width: 1140px;">
         <a href="index.html" class="logo-link font-semibold text-lg text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap">Somnath <span class="text-[#F45E22]">Nabajja</span></a>
         <div class="hidden md:flex items-center gap-7">
-          <a href="index.html#case-studies" class="font-medium text-sm text-[#1e1e1e] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Case Studies</a>
-          <a href="career-tidbits.html" class="font-medium text-sm text-[#1e1e1e] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Career Tidbits</a>
-          <a href="built-with-ai.html" class="font-medium text-sm text-[#1e1e1e] hover:text-[#FD6F00] transition-colors pb-1 border-b-2 border-transparent">Built with AI</a>
-          <a href="writeups.html" class="font-medium text-sm text-[#FD6F00] hover:text-[#FD6F00] border-b-2 border-[#FD6F00] pb-1 transition-colors">Writeups</a>
+          <a href="index.html#case-studies" class="font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors pb-1 border-b-2 border-transparent">Case Studies</a>
+          <a href="career-tidbits.html" class="font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors pb-1 border-b-2 border-transparent">Career Tidbits</a>
+          <a href="built-with-ai.html" class="font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors pb-1 border-b-2 border-transparent">Built with AI</a>
+          <a href="writeups.html" class="font-medium text-sm text-[#F45E22] hover:text-[#F45E22] border-b-2 border-[#F45E22] pb-1 transition-colors">Writeups</a>
         </div>
         <button id="nav-burger" class="md:hidden shrink-0" aria-label="Open menu" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
       </nav>
       <div id="mobile-menu" class="md:hidden absolute top-full left-0 right-0 z-40 px-6 py-4 flex flex-col divide-y divide-[#efefef] border-b border-[#efefef] bg-white rounded-b-xl">
-        <a href="index.html#case-studies" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#FD6F00] transition-colors">Case Studies</a>
-        <a href="career-tidbits.html" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#FD6F00] transition-colors">Career Tidbits</a>
-        <a href="built-with-ai.html" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#FD6F00] transition-colors">Built with AI</a>
-        <a href="writeups.html" class="py-3 font-medium text-sm text-[#FD6F00] hover:text-[#FD6F00] transition-colors">Writeups</a>
+        <a href="index.html#case-studies" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors">Case Studies</a>
+        <a href="career-tidbits.html" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors">Career Tidbits</a>
+        <a href="built-with-ai.html" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors">Built with AI</a>
+        <a href="writeups.html" class="py-3 font-medium text-sm text-[#F45E22] hover:text-[#F45E22] transition-colors">Writeups</a>
       </div>
     </header>
     <div id="menu-scrim" class="fixed inset-0 z-30 bg-black/80 md:hidden" aria-hidden="true"></div>
@@ -145,7 +145,7 @@
           return '' +
             '<a class="group flex items-start gap-3 py-3 px-3 -mx-3 rounded-lg no-underline hover:bg-[#f8f7f1] transition-colors" href="' + escapeHtml(article.link) + '" target="_blank" rel="noopener noreferrer">' +
               '<span class="shrink-0 mt-0.5 relative -top-0.5" title="' + label + '">' + icon + '</span>' +
-              '<span class="relative -top-0.5 text-base font-normal text-[#1e1e1e] leading-[28px] underline decoration-dashed decoration-1 decoration-[#7a7570] underline-offset-[6px] transition-colors min-w-0 group-hover:text-[#FD6F00] group-hover:decoration-[#FD6F00]">' + escapeHtml(article.title) + '</span>' +
+              '<span class="relative -top-0.5 text-base font-normal text-[#1e1e1e] leading-[28px] underline decoration-dashed decoration-1 decoration-[#7a7570] underline-offset-[6px] transition-colors min-w-0 group-hover:text-[#F45E22] group-hover:decoration-[#F45E22]">' + escapeHtml(article.title) + '</span>' +
             '</a>';
         }).join('');
 
