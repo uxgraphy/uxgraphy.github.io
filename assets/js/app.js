@@ -253,3 +253,30 @@ function RequestCaseStudy() {
   show(0);
   start();
 })();
+
+// ============================================================
+//  Case study card thumbnails: hover scale factors
+// ============================================================
+// On hover each thumbnail scales from its center until it sits flush with the card's
+// inner border, closing the 4px white rim (see .cs-thumb in input.css). The factor
+// depends on the thumbnail's own size, so it is set per card: 1 + 8px / size, which is
+// 4px of growth on each side.
+(function () {
+  var thumbs = document.querySelectorAll('.cs-thumb');
+  if (!thumbs.length) return;
+  var GROW = 8;
+
+  function update(el) {
+    el.style.setProperty('--sx', (1 + GROW / el.offsetWidth).toFixed(4));
+    el.style.setProperty('--sy', (1 + GROW / el.offsetHeight).toFixed(4));
+  }
+
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(function (entries) {
+      entries.forEach(function (e) { update(e.target); });
+    });
+    thumbs.forEach(function (el) { ro.observe(el); });
+  } else {
+    thumbs.forEach(update);
+  }
+})();
