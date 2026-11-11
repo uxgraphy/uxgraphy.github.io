@@ -41,54 +41,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..900&display=swap">
   <link rel="stylesheet" href="assets/css/tailwind.css">
-  <style>
-    /* JS syntax highlighting, VS Code Dark+ convention */
-    #script-modal-code .tok-cm { color: #6a9955; }
-    #script-modal-code .tok-str, #script-modal-code .tok-tpl { color: #ce9178; }
-    #script-modal-code .tok-num { color: #b5cea8; }
-    #script-modal-code .tok-kw { color: #569cd6; }
-    #script-modal-code .tok-fn { color: #dcdcaa; }
-
-    /* Styled tooltip for the AI tool logos, replaces the native title tooltip. */
-    .ai-tool-tip { position: relative; display: inline-flex; }
-    .ai-tool-tip::after {
-      content: attr(data-tip);
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(-4px);
-      background: #1e1e1e;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 500;
-      white-space: nowrap;
-      padding: 4px 8px;
-      border-radius: 6px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .15s, transform .15s;
-      z-index: 10;
-    }
-    .ai-tool-tip::before {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-4px);
-      border: 5px solid transparent;
-      border-bottom-color: #1e1e1e;
-      margin-top: -2px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .15s, transform .15s;
-      z-index: 10;
-    }
-    .ai-tool-tip:hover::after, .ai-tool-tip:hover::before,
-    .ai-tool-tip:focus-visible::after, .ai-tool-tip:focus-visible::before {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/home-experiment.css">
+  <link rel="icon" type="image/svg+xml" href="assets/img/brand/sn-favicon.svg">
   <script>
     // Flag the curtain before first paint. Without JS this never runs, the
     // class is never set, and #preloader stays display:none.
@@ -100,7 +54,7 @@
   </script>
 </head>
 
-<body class="bg-white">
+<body>
   <div id="preloader" role="status" aria-label="Loading">
     <span id="loading-text" aria-hidden="true"></span>
     <span id="loading-bar" aria-hidden="true"><span id="loading-bar-fill"></span></span>
@@ -109,45 +63,49 @@
   <div id="content" class="min-h-screen flex flex-col">
     <!-- ===================== Header ===================== -->
     <header id="site-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#efefef]">
-      <nav class="mx-auto w-full px-6 flex items-center justify-between py-7" style="max-width: 1140px;">
-        <a href="index.html" class="logo-link font-semibold text-lg text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap">Somnath <span class="text-[#F45E22]">Nabajja</span></a>
-        <div class="hidden md:flex items-center gap-7">
-          <a href="index.html#case-studies" class="font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors pb-1 border-b-2 border-transparent">Case Studies</a>
-          <a href="career-tidbits.html" class="font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors pb-1 border-b-2 border-transparent">Career Tidbits</a>
-          <a href="built-with-ai.html" class="font-medium text-sm text-[#F45E22] hover:text-[#F45E22] border-b-2 border-[#F45E22] pb-1 transition-colors">Built with AI</a>
-          <a href="writeups.html" class="font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors pb-1 border-b-2 border-transparent">Writeups</a>
+      <nav class="mx-auto w-full px-6 flex items-center justify-between py-7 !max-w-[1140px]">
+        <a href="index.html" class="logo-link font-semibold text-lg text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap" aria-label="Somnath Nabajja, home">Somnath <span class="text-[#F45E22]">Nabajja</span><img class="sig" src="assets/img/brand/signature-a.svg" alt="Somnath Nabajja"></a>
+        <div class="hidden md:flex items-center gap-1 glow-menu" id="glow-menu">
+          <a href="index.html" class="glow-logo" aria-label="Somnath Nabajja, home"><b>SOMNATH</b><b>Nabajja</b><img class="sig" src="assets/img/brand/signature-a.svg" alt="Somnath Nabajja"></a>
+          <a href="index.html#case-studies" class="glow-item"><span class="glow-bg"></span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Case Studies</span></a>
+          <a href="career-tidbits.html" class="glow-item"><span class="glow-bg"></span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><span>Career Tidbits</span></a>
+          <a href="built-with-ai.html" class="glow-item is-active" aria-current="page"><span class="glow-bg"></span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span>Built with AI</span></a>
+          <a href="writeups.html" class="glow-item"><span class="glow-bg"></span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg><span>Writeups</span></a>
         </div>
-        <button id="nav-burger" class="md:hidden shrink-0" aria-label="Open menu" aria-expanded="false">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
+        <button id="nav-burger" class="md:hidden shrink-0" aria-label="Open menu" aria-expanded="false"><span class="bg-bar b1"></span><span class="bg-bar b2"></span><span class="bg-bar b3"></span></button>
       </nav>
       <div id="mobile-menu" class="md:hidden absolute top-full left-0 right-0 z-40 px-6 py-4 flex flex-col divide-y divide-[#efefef] border-b border-[#efefef] bg-white rounded-b-xl">
-        <a href="index.html#case-studies" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors">Case Studies</a>
-        <a href="career-tidbits.html" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors">Career Tidbits</a>
-        <a href="built-with-ai.html" class="py-3 font-medium text-sm text-[#F45E22] hover:text-[#F45E22] transition-colors">Built with AI</a>
-        <a href="writeups.html" class="py-3 font-medium text-sm text-[#1e1e1e] hover:text-[#F45E22] transition-colors">Writeups</a>
+        <a href="index.html#case-studies" class="m-link py-3 font-medium text-sm text-[#1e1e1e] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Case Studies</span></a>
+        <a href="career-tidbits.html" class="m-link py-3 font-medium text-sm text-[#1e1e1e] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><span>Career Tidbits</span></a>
+        <a href="built-with-ai.html" aria-current="page" class="is-active m-link py-3 font-medium text-sm text-[#1e1e1e] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg><span>Built with AI</span></a>
+        <a href="writeups.html" class="m-link py-3 font-medium text-sm text-[#1e1e1e] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg><span>Writeups</span></a>
       </div>
     </header>
     <div id="menu-scrim" class="fixed inset-0 z-30 bg-black/80 md:hidden" aria-hidden="true"></div>
 
-    <main class="text-[#1e1e1e] bg-white flex-1">
+    <main class="text-[#1e1e1e] flex-1">
 
-      <div class="bg-[#f8f7f1] border-b border-[#efefef]">
-
-        <div class="mx-auto w-full px-6 py-12" style="max-width: 1140px;">
-          <h1 class="heading-1 mb-2">Built with AI</h1>
-          <p class="max-w-[620px] mb-4 text-sm text-[#7a7570]">Things I've built with AI-assisted tooling.</p>
-          <div id="ai-tech-stack-list" class="flex items-center gap-4 flex-wrap"></div>
+      <!-- ===================== Intro (home hero band) ===================== -->
+      <div class="s-wrap ![--prev:var(--cream)] ![--next:var(--cream)]"><section class="x-hero"><div class="mx-auto w-full px-6 py-12 md:py-16 !max-w-[1140px]">
+        <div class="flex flex-wrap -mx-3 gap-y-4">
+          <div class="w-full px-3">
+            <h1 class="heading-title">Built with AI</h1>
+            <!-- Lime tray: label, then the AI tool badges. Badges use <i>, not <span>: the hero's lime-pill rule styles every span inside .heading-3. data-leaf makes the grid snap measure to the tray's edge. At 808px and below the tray is capped at 432px, so label and badges stack and the colon drops. -->
+            <p class="heading-3 mb-0"><span data-leaf class="[text-wrap:balance] max-[808px]:max-w-[432px]"><i class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 py-1 not-italic max-[808px]:flex-col"><i class="not-italic">My AI stack<i class="not-italic max-[808px]:hidden">:</i></i><i id="ai-tech-stack-list" class="flex items-center pl-2 not-italic max-[367px]:flex-wrap max-[367px]:justify-center max-[367px]:max-w-[152px] max-[367px]:gap-y-1"></i></i></span></p>
+          </div>
         </div>
-      </div>
+      </div></section></div>
 
-      <div id="built-with-ai-list" class="mx-auto w-full px-6 pt-16 pb-16" style="max-width: 1140px;"></div>
+      <!-- ===================== Project list (home cream band) ===================== -->
+      <div class="s-wrap ![--prev:transparent] ![--next:transparent]"><div id="built-with-ai" class="even-row-colored relative rounded-r-[var(--s-r)] before:content-[''] before:absolute before:top-0 before:inset-x-0 before:h-[var(--s-r)] before:border-t before:border-r before:border-[#e8e8ed] before:rounded-tr-[var(--s-r)] before:pointer-events-none before:z-[2] before:[clip-path:inset(0_0_0_var(--s-r))] after:content-[''] after:absolute after:-bottom-px after:inset-x-0 after:h-[var(--s-r)] after:border-b after:border-r after:border-[#e8e8ed] after:rounded-br-[var(--s-r)] after:pointer-events-none after:z-[2] after:[clip-path:inset(0_0_0_var(--s-r))]">
+      <div id="built-with-ai-list" class="mx-auto w-full px-6 grid grid-cols-1 md:grid-cols-2 min-[1024px]:grid-cols-3 gap-8 max-[767px]:gap-6 !max-w-[1140px]"></div>
+      </div></div>
 
-      <dialog id="script-modal" class="rounded-2xl p-0 w-full overflow-hidden bg-[#1e1e1e] backdrop:bg-black/40" style="max-width: 640px; height: 600px; max-height: 85vh;">
+      <dialog id="script-modal" class="rounded-2xl p-0 w-full overflow-hidden bg-[#1e1e1e] backdrop:bg-black/40 max-w-[640px] h-[600px] max-h-[85vh]">
         <div class="h-full flex flex-col">
           <div class="shrink-0 flex items-center justify-between gap-4 px-6 py-4 border-b border-[#3c3c3c]">
             <h2 id="script-modal-title" class="font-semibold text-base mb-0 font-mono truncate text-[#d4d4d4]"></h2>
-            <button id="script-modal-close" type="button" aria-label="Close" class="shrink-0 text-[#9da5b4] hover:text-[#F45E22] transition-colors">
+            <button id="script-modal-close" type="button" aria-label="Close" class="shrink-0 text-[#9da5b4] hover:text-[#C8F169] transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
@@ -162,7 +120,7 @@
             </div>
           </div>
           <div class="shrink-0 flex justify-end px-6 py-4 border-t border-[#3c3c3c]">
-            <button id="script-modal-copy" type="button" class="text-sm font-medium text-[#1e1e1e] bg-[#F45E22] rounded-full px-4 py-2 min-w-[110px] text-center">Copy script</button>
+            <button id="script-modal-copy" type="button" class="text-sm font-medium text-[#14143A] bg-[#C8F169] rounded-full px-4 py-2 min-w-[110px] text-center transition-colors [@media(hover:hover)]:hover:bg-[#d6f68a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C8F169]">Copy script</button>
           </div>
         </div>
       </dialog>
@@ -170,9 +128,9 @@
     </main>
 
     <!-- ===================== Footer ===================== -->
-    <footer class="py-6 border-t border-[#efefef]">
-      <div class="mx-auto w-full px-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left" style="max-width: 1140px;">
-        <a href="index.html" class="logo-link no-underline font-semibold text-base text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap">Somnath <span class="text-[#F45E22]">Nabajja</span></a>
+    <div class="s-wrap ![--prev:var(--cream)] ![--next:transparent]"><footer class="py-6 border-t border-[#efefef]">
+      <div class="mx-auto w-full px-6 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left !max-w-[1140px]">
+        <a href="index.html" class="logo-link no-underline font-semibold text-base text-[#1e1e1e] hover:text-[#1e1e1e] whitespace-nowrap" aria-label="Somnath Nabajja, home">Somnath <span class="text-[#F45E22]">Nabajja</span><img class="sig" src="assets/img/brand/signature-a.svg" alt="Somnath Nabajja"></a>
         <p class="m-0 text-base text-[#7a7570] flex items-center gap-2 justify-center sm:justify-end">
           <span class="inline-flex items-center gap-1 font-medium text-[#1e1e1e] whitespace-nowrap">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="#DA7756"><rect x="10.75" y="1" width="2.5" height="7" rx="1.25"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" /><rect x="10.75" y="1" width="2.5" height="7" rx="1.25" transform="rotate(45 12 12)"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" transform="rotate(45 12 12)"/><rect x="10.75" y="1" width="2.5" height="7" rx="1.25" transform="rotate(90 12 12)"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" transform="rotate(90 12 12)"/><rect x="10.75" y="1" width="2.5" height="7" rx="1.25" transform="rotate(135 12 12)"/><rect x="10.75" y="16" width="2.5" height="7" rx="1.25" transform="rotate(135 12 12)"/></g></svg>
@@ -182,7 +140,7 @@
           <span class="whitespace-nowrap">&copy;<span id="copy-year"></span></span>
         </p>
       </div>
-    </footer>
+    </footer></div>
   </div>
 
   <script>document.getElementById('copy-year').textContent = new Date().getFullYear();</script>
@@ -227,67 +185,48 @@
         return out;
       }
 
-      // Lucide icon glyphs, inlined (stroke uses currentColor so they pick up the tile's text color).
+      // Lucide icon glyphs, inlined (stroke uses currentColor so they pick up the tile's text color: lime on ink).
       var ICON_GLYPHS = {
         code: '<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 18 23 12 18 6"/><polyline points="6 6 1 12 6 18"/><text x="12" y="12" font-size="7.5" font-family="ui-monospace, monospace" font-weight="800" text-anchor="middle" dominant-baseline="central" stroke="none" fill="currentColor">JS</text></svg>',
         cbs: '<svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 24 24"><text x="2" y="12.5" font-size="8" font-family="ui-sans-serif, system-ui, sans-serif" font-weight="800" text-anchor="start" dominant-baseline="central" fill="#1a1a1a">CbS</text><circle cx="21" cy="13.88" r="1.2" fill="#F45E22"/></svg>'
       };
 
-      // Traditional 12-hue color wheel, in wheel order: 3 primary, 3 secondary, 6 tertiary.
-      // Each type gets the next hue in this fixed order the first time it's seen.
-      var TYPE_HUES = [
-        { bg: "#fbe2e1", text: "#a52a24" }, // red (primary)
-        { bg: "#fbf1cf", text: "#8a6d00" }, // yellow (primary)
-        { bg: "#dcebfb", text: "#1d5490" }, // blue (primary)
-        { bg: "#fbe6d3", text: "#a15412" }, // orange (secondary)
-        { bg: "#ddf0e0", text: "#22703a" }, // green (secondary)
-        { bg: "#eadffb", text: "#6a2e9c" }, // purple (secondary)
-        { bg: "#fbdcd3", text: "#a83c1e" }, // red-orange (tertiary)
-        { bg: "#fbecc9", text: "#93690a" }, // yellow-orange (tertiary)
-        { bg: "#eef4cf", text: "#5c7a12" }, // yellow-green (tertiary)
-        { bg: "#d3f0ea", text: "#116e5f" }, // blue-green (tertiary)
-        { bg: "#e2dcf7", text: "#4331a0" }, // blue-purple (tertiary)
-        { bg: "#f9dced", text: "#9c2a72" }  // red-purple (tertiary)
-      ];
-      var typeColors = {};
-      function colorForType(type) {
-        if (!typeColors[type]) {
-          var used = Object.keys(typeColors).length;
-          typeColors[type] = TYPE_HUES[used % TYPE_HUES.length];
-        }
-        return typeColors[type];
-      }
 
       var entries = (window.__BUILT_WITH_AI__ || []);
       var container = document.getElementById('built-with-ai-list');
       if (!container) return;
 
-      container.innerHTML = entries.map(function (entry, index) {
-        var typeColor = colorForType(entry.type);
+      // Joined cards, borrowed from the home page about cards (fill, CTA, hover) and case-study cards (title over meta).
+      var ARROW = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
+      function card(entry, index) {
         var icon = entry.icon
           ? '<img src="' + escapeHtml(entry.icon) + '" alt="" class="w-12 h-12 rounded-xl object-cover shrink-0">'
-          : entry.iconGlyph && ICON_GLYPHS[entry.iconGlyph]
-            ? '<div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background:' + (entry.iconGlyph === 'cbs' ? '#f8f7f1' : typeColor.text) + ';color:' + typeColor.bg + '">' + ICON_GLYPHS[entry.iconGlyph] + '</div>'
-            : '<div class="w-12 h-12 rounded-xl bg-[#f2f1ec] flex items-center justify-center text-[#7a7570] font-semibold shrink-0">' + escapeHtml(initials(entry.name)) + '</div>';
+          : '<div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ' + (entry.iconGlyph === 'cbs' ? 'bg-white border border-[#ebe8de]' : 'bg-[#14143A] text-[#C8F169]') + '">' + (ICON_GLYPHS[entry.iconGlyph] || escapeHtml(initials(entry.name))) + '</div>';
         var tag = entry.modal ? 'button' : 'a';
         var attrs = entry.modal
           ? ' type="button" data-modal-index="' + index + '"'
           : ' href="' + escapeHtml(entry.link) + '" target="_blank" rel="noopener noreferrer"';
+        // CTA names where the click goes, so it never repeats the type line above it.
+        var cta = entry.modal ? 'View script'
+          : /chromewebstore\.google\.com/.test(entry.link) ? 'Open Chrome Web Store'
+          : 'Open ' + new URL(entry.link).hostname.replace(/^www\./, '');
         return '' +
-          '<' + tag + attrs + ' aria-label="' + (entry.modal ? 'View script for ' : 'Try ') + escapeHtml(entry.name) + '" class="group w-full text-left flex flex-col items-start sm:flex-row sm:items-start gap-4 border border-[#efefef] rounded-2xl p-5 mb-4 last:mb-0 hover:border-[#F45E22]/30 hover:bg-[#F45E22]/5 active:scale-[0.99] active:bg-[#F45E22]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F45E22] focus-visible:ring-offset-2 transition-all no-underline text-[#1e1e1e] hover:text-[#1e1e1e]">' +
-          '  ' + icon +
-          '  <div class="flex-1 min-w-0">' +
-          '    <div class="flex flex-col items-start sm:flex-row sm:items-center gap-1 sm:gap-2 mb-0.5 flex-wrap">' +
-          '      <h3 class="font-semibold text-lg mb-0">' + escapeHtml(entry.name) + '</h3>' +
-          '      <span class="text-xs font-medium rounded-full px-2 py-0.5" style="background:' + typeColor.bg + ';color:' + typeColor.text + '">' + escapeHtml(entry.type) + '</span>' +
-          '    </div>' +
-          '    <p class="text-base text-[#1e1e1e] mb-0" style="max-width: 600px;">' + escapeHtml(entry.description) + '</p>' +
-          '  </div>' +
-          '  <span aria-hidden="true" class="hidden sm:inline-flex shrink-0 text-[#1e1e1e] group-hover:text-[#F45E22] transition-opacity opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100">' +
-          '    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>' +
-          '  </span>' +
+          '<' + tag + attrs + ' data-card aria-label="' + (entry.modal ? 'View script for ' : 'Try ') + escapeHtml(entry.name) + '" class="group flex flex-col items-start w-full h-full text-left p-6 rounded-3xl bg-[#fefdfb] border border-[#ebe8de] no-underline text-[#1e1e1e] hover:text-[#1e1e1e] cursor-pointer [transition:transform_.45s_cubic-bezier(.34,1.7,.5,1),background-color_.2s_ease] [-webkit-tap-highlight-color:transparent] [@media(hover:hover)]:hover:scale-[1.02] [@media(hover:hover)]:hover:bg-white active:scale-[.98] motion-reduce:!transform-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14143A]">' +
+            icon +
+            '<h3 class="mt-4 mb-0 text-[22px] leading-[30px] font-medium text-[#14143A]">' + escapeHtml(entry.name) + '</h3>' +
+            '<span class="mt-1 text-[13px] leading-5 font-semibold uppercase tracking-[.08em] text-[#655f5a]">' + escapeHtml(entry.type) + '</span>' +
+            '<p class="mt-3 mb-6 text-base text-[#1e1e1e] max-w-[700px]">' + escapeHtml(entry.description) + '</p>' +
+            // CTA row, same as the home about cards: dashed line at rest; hovering the CTA itself sweeps a solid line from the text to the arrow circle.
+            '<span class="group/cta mt-auto flex w-full items-end justify-between gap-3 min-h-[54px] max-[767px]:min-h-[44px] text-base leading-6 font-medium text-[#14143A]">' +
+              '<span class="relative block flex-1 min-w-0 mb-0.5 after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-[#14143A] after:[transition:width_.35s_cubic-bezier(.3,.55,.5,1)] group-hover/cta:after:w-full motion-reduce:after:!transition-none">' +
+                '<span class="inline-block pb-1 bg-[repeating-linear-gradient(90deg,#14143A_0_4px,transparent_4px_7px)] bg-repeat-x bg-[position:0_100%] bg-[length:100%_1px]">' + cta + '</span>' +
+              '</span>' +
+              '<span aria-hidden="true" class="shrink-0 w-9 h-9 rounded-full bg-[#C8F169] flex items-center justify-center">' + ARROW + '</span>' +
+            '</span>' +
           '</' + tag + '>';
-      }).join('');
+      }
+
+      container.innerHTML = entries.map(card).join('');
 
       // ---- script modal (for entries with entry.modal === true) -----------
       var modal = document.getElementById('script-modal');
@@ -348,18 +287,40 @@
   </script>
   <script src="assets/js/ai-tech-stack-data.js"></script>
   <script>
+    // AI tool badges inside the hero's lime tray: overlapping white circles, each lifts on hover and shows the tool name.
     (function () {
       var tools = window.__AI_TOOLS__ || [];
-      var container = document.getElementById('ai-tech-stack-list');
-      if (!container) return;
-
-      container.innerHTML = tools.map(function (tool) {
-        return '<span class="ai-tool-tip" data-tip="' + tool.name + '" tabindex="0">' +
-          '<img src="' + tool.logo + '" alt="' + tool.name + '" class="w-6 h-6 object-contain shrink-0">' +
-          '</span>';
+      var box = document.getElementById('ai-tech-stack-list');
+      if (!box) return;
+      box.innerHTML = tools.map(function (t) {
+        return '<i class="ai-tool-tip -ml-2 transition-transform duration-200 [@media(hover:hover)]:hover:-translate-y-1 hover:z-10 active:scale-[.96] motion-reduce:transition-none" data-tip="' + t.name + '" tabindex="0">' +
+          '<i class="flex items-center justify-center w-9 h-9 rounded-full bg-white border-2 border-[#14143A]">' +
+            '<img src="' + t.logo + '" alt="' + t.name + '" class="w-[18px] h-[18px] object-contain shrink-0">' +
+          '</i></i>';
       }).join('');
     })();
   </script>
+  <script>
+/* Grid snap (same logic as the home page): each band's height is a whole number of 56px grid cells, with equal space above and below its content. */
+(function(){var U=56*2,G=56;
+function inkOff(x){var c=getComputedStyle(x),cv=inkOff.ctx||(inkOff.ctx=document.createElement('canvas').getContext('2d'));cv.font=c.fontStyle+' '+c.fontWeight+' '+c.fontSize+' '+c.fontFamily;var m=cv.measureText((x.textContent||'').trim()||'H'),fa=m.fontBoundingBoxAscent,fd=m.fontBoundingBoxDescent,lh=parseFloat(c.lineHeight);if(!(fa>0)||!(lh>0))return 0;return (lh-(fa+fd))/2+fa-m.actualBoundingBoxAscent;}
+function ext(el){var t=1e9,b=-1e9;el.querySelectorAll('*').forEach(function(x){var q=x.getBoundingClientRect();if(x.matches('h2')){q={top:q.top+inkOff(x),bottom:q.bottom,height:q.height,width:q.width};}if(q.height<1||q.width<1)return;var c=getComputedStyle(x);if(c.visibility=='hidden'||c.display=='none'||c.opacity=='0')return;if(x.closest('h2')&&!x.matches('h2'))return;if(x.parentElement.closest('[data-card],[data-leaf]'))return;if(x.children.length&&x.tagName!='svg'&&x.tagName!='H2'&&!x.matches('[data-card],[data-leaf]'))return;if(q.top<t)t=q.top;if(q.bottom>b)b=q.bottom;});return[t,b];}
+function eq(sec,pe){pe.style.removeProperty('padding-top');pe.style.removeProperty('padding-bottom');sec.style.minHeight='0';
+var r=sec.getBoundingClientRect(),cs=getComputedStyle(pe),pt=parseFloat(cs.paddingTop),pb=parseFloat(cs.paddingBottom),x=ext(sec),top=x[0]-r.top,bot=r.bottom-x[1],C=r.height-top-bot,pad=innerWidth<768?56:U;
+var ex=Math.ceil((C+2*pad)/G-1e-3)*G-(C+2*pad);if(ex<0)ex=0;var pt0=pad+ex/2,pb0=pad+ex/2;pe.style.setProperty('padding-top',(pt0-(top-pt))+'px','important');pe.style.setProperty('padding-bottom',(pb0-(bot-pb))+'px','important');}
+/* Project list: padding is exactly 2 grid cells (112px) above and below the cards (1 cell below 768px), and the gaps stay fixed (32px, 24px below 768px). Leftover space that would push the band off the grid makes each row of cards a little taller instead; the CTA is pinned to the card bottom, so the extra sits above it. */
+function fit(sec){var L=sec.firstElementChild,K=L?[].slice.call(L.children).filter(function(c){return c.hasAttribute('data-card');}):[];K.forEach(function(c){c.style.minHeight='';});
+sec.style.removeProperty('padding-top');sec.style.removeProperty('padding-bottom');var x=ext(sec),C=x[1]-x[0],pad=innerWidth<768?56:U,ex=Math.ceil((C+2*pad)/G-1e-3)*G-(C+2*pad);
+if(K.length&&ex>0.5){var rows={};K.forEach(function(c){var k=Math.round(c.offsetTop);(rows[k]=rows[k]||[]).push(c);});var ks=Object.keys(rows),add=ex/ks.length;ks.forEach(function(k){var h=Math.max.apply(null,rows[k].map(function(c){return c.getBoundingClientRect().height;}));rows[k].forEach(function(c){c.style.minHeight=(h+add)+'px';});});}
+eq(sec,sec);}
+function snap(){var hx=document.querySelector('.x-hero');if(hx)eq(hx,hx.querySelector(':scope>div'));var tb=document.getElementById('built-with-ai');if(tb)fit(tb);
+var f=document.querySelector('.s-wrap>footer');if(f){f.style.minHeight='0';f.style.removeProperty('padding-top');f.style.removeProperty('padding-bottom');var h=f.getBoundingClientRect().height;f.style.minHeight=(Math.ceil(h/U)*U)+'px';var r=f.getBoundingClientRect(),x=ext(f),d=(x[0]-r.top)-(r.bottom-x[1]);if(d>0)f.style.setProperty('padding-bottom',d+'px','important');else if(d<0)f.style.setProperty('padding-top',(-d)+'px','important');}}
+window.addEventListener('load',snap);window.addEventListener('resize',snap);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(snap);snap();})();
+/* Nav underline grows from the side the pointer came in (same as the home page). */
+(function(){[].slice.call(document.querySelectorAll('#glow-menu .glow-item')).forEach(function(a){function s(e){var r=a.getBoundingClientRect();a.style.setProperty('--ox',e.clientX<r.left+r.width/2?'left':'right');}a.addEventListener('pointerenter',s);a.addEventListener('pointerleave',s);});})();
+  </script>
+
   <script src="assets/js/app.js"></script>
 </body>
 
