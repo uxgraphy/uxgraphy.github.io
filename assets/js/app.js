@@ -9,17 +9,15 @@
 // Net effect: a visitor on a warm cache sees no loading UI at all. A visitor
 // on a cold phone connection gets real progress and something to read.
 //
-// It waits on real assets — the web fonts, plus the images marked
-// data-critical because they sit above the fold — and lifts on the last one.
-// Deliberately NOT window.load: that also waits on the carousel images far
-// below the fold, which nobody is looking at yet.
+// It waits on real assets: the web fonts, plus every image visible in the
+// first viewport (measured at runtime). Deliberately NOT window.load: that
+// also waits on images far below the fold, which nobody is looking at yet.
 (function () {
   var root = document.documentElement;
   if (!root.classList.contains('is-loading')) return;
 
   var preloader = document.getElementById('preloader');
   var textEl = document.getElementById('loading-text');
-  var barEl = document.getElementById('loading-bar-fill');
   if (!preloader || !textEl) {
     root.classList.remove('is-loading');
     return;
@@ -33,8 +31,16 @@
     'Almost there!'
   ];
 
-  var INDICATOR_AFTER = 250;  // below this there is nothing worth reporting
-  var MIN_SHOWN = 400;        // once shown, don't strobe it away
+  // Full brand moment only on the first page view of a session. Every later
+  // page is quiet: nothing shows unless the load is genuinely slow.
+  var firstView = true;
+  try {
+    firstView = !sessionStorage.getItem('sn-loader-seen');
+    sessionStorage.setItem('sn-loader-seen', '1');
+  } catch (e) {}
+
+  var INDICATOR_AFTER = firstView ? 0 : 250;    // repeat views: only report a real wait
+  var MIN_SHOWN = firstView ? 2400 : 400;       // first view: long enough for all three messages
   var MAX_WAIT = 6000;        // a stalled asset must never trap the visitor
   var FADE = 200;             // keep in sync with #preloader.is-leaving in CSS
 
@@ -44,17 +50,27 @@
   var shownAt = 0;
   var lifted = false;
 
-  var indicatorTimer = setTimeout(function () {
-    shownAt = window.performance && performance.now ? performance.now() : 0;
+  function show() {
+    shownAt = window.performance && performance.now ? performance.now() : 1;
     preloader.classList.add('is-active');
-  }, INDICATOR_AFTER);
+  }
+
+  var indicatorTimer = 0;
+  if (firstView) show();
+  else indicatorTimer = setTimeout(show, INDICATOR_AFTER);
+
+  // First view: messages also advance on a timer, so a fast load still shows
+  // all three. Repeat views: messages follow real progress only.
+  var floorIdx = firstView ? 0 : 2;
+  if (firstView) {
+    setTimeout(function () { floorIdx = 1; paint(); }, 900);
+    setTimeout(function () { floorIdx = 2; paint(); }, 1700);
+  }
 
   function paint() {
     var ratio = total ? settled / total : 1;
 
-    if (barEl) barEl.style.transform = 'scaleX(' + ratio + ')';
-
-    var next = ratio < 0.34 ? 0 : ratio < 0.75 ? 1 : 2;
+    var next = Math.min(floorIdx, ratio < 0.34 ? 0 : ratio < 0.75 ? 1 : 2);
     if (next === current) return;
     current = next;
 
@@ -66,13 +82,19 @@
   }
 
   function done(fade) {
+    // .is-loading is what keeps the curtain displayed, so it must outlive the
+    // fade. Removing it up front made the curtain vanish instantly.
     if (fade) {
       preloader.classList.add('is-leaving');
-      setTimeout(function () { preloader.remove(); }, FADE + 50);
+      setTimeout(function () {
+        preloader.remove();
+        root.classList.remove('is-loading');
+      }, FADE + 50);
     } else {
       preloader.remove();
+      root.classList.remove('is-loading');
     }
-    root.classList.remove('is-loading');
+    warmBuffer();
     // Measurable in devtools: how long the curtain really lasted.
     if (window.performance && performance.mark) performance.mark('curtain-lift');
   }
@@ -103,16 +125,33 @@
 
   if (document.fonts && document.fonts.ready) track(document.fonts.ready);
 
-  Array.prototype.forEach.call(
-    document.querySelectorAll('img[data-critical]'),
-    function (img) {
+  // The gate is measured on this device, not hand-tagged: every image that
+  // is on screen right now (phone and desktop differ). Images within one more
+  // screen below the fold don't hold the curtain, but are fetched eagerly the
+  // moment it lifts, so an early scroll finds them already arriving. The rest
+  // keep native lazy loading.
+  var vh = window.innerHeight || document.documentElement.clientHeight;
+  var buffer = [];
+
+  Array.prototype.forEach.call(document.images, function (img) {
+    var r = img.getBoundingClientRect();
+    if (!r.width && !r.height) return;          // hidden (inactive slide, display:none)
+    if (r.bottom > 0 && r.top < vh) {
+      if (img.loading === 'lazy') img.loading = 'eager';
       track(new Promise(function (resolve) {
         if (img.complete) return resolve();
         img.addEventListener('load', resolve, { once: true });
         img.addEventListener('error', resolve, { once: true });
       }));
+    } else if (r.top >= vh && r.top < vh * 2) {
+      buffer.push(img);
     }
-  );
+  });
+
+  function warmBuffer() {
+    buffer.forEach(function (img) { if (img.loading === 'lazy') img.loading = 'eager'; });
+    buffer = [];
+  }
 
   paint();
   setTimeout(lift, MAX_WAIT);
