@@ -1084,6 +1084,12 @@
           <span aria-hidden="true" class="absolute left-[2px] top-[2px] block h-[16px] w-[16px] rounded-full bg-white transition-transform group-aria-checked/sw:translate-x-[16px]"></span>
         </button>
       </div>
+      <div class="mt-[8px] flex items-center justify-between gap-[12px]">
+        <span class="text-sm leading-[20px] text-[#222222]">CSS inspector</span>
+        <button type="button" role="switch" id="cp-inspect" aria-checked="false" aria-label="CSS inspector" class="group/sw relative h-[20px] w-[36px] shrink-0 rounded-full border-0 bg-[#bdbdbd] p-0 cursor-pointer aria-checked:bg-[#222222]">
+          <span aria-hidden="true" class="absolute left-[2px] top-[2px] block h-[16px] w-[16px] rounded-full bg-white transition-transform group-aria-checked/sw:translate-x-[16px]"></span>
+        </button>
+      </div>
       <button type="button" id="cp-hide" class="mt-[16px] w-full rounded-[8px] border border-[#bdbdbd] bg-[#f5f5f5] px-[12px] py-[4px] text-sm leading-[20px] font-semibold text-[#222222] cursor-pointer">
         Hide panel (type ctrl)
       </button>
@@ -1110,6 +1116,53 @@
         numbers.forEach((n) => n.classList.toggle("hidden", !on));
         setSwitch(numbersBtn, on);
       };
+      // CSS inspector: outline the hovered slide element and list its key styles
+      const inspectBtn = document.getElementById("cp-inspect");
+      const outline = document.createElement("div");
+      const tip = document.createElement("div");
+      outline.style.cssText = "position:fixed;z-index:60;pointer-events:none;outline:1px solid #0a84ff;background:rgba(10,132,255,.12);display:none";
+      tip.style.cssText = "position:fixed;z-index:61;pointer-events:none;max-width:320px;padding:8px 12px;border-radius:8px;background:#222;color:#fff;font:12px/16px ui-monospace,Menlo,monospace;white-space:pre-wrap;display:none";
+      body.append(outline, tip);
+      let inspecting = false;
+      const hex = (c) => {
+        const [r, g, b, a = 1] = c.match(/[\d.]+/g).map(Number);
+        const h = "#" + [r, g, b].map((n) => Math.round(n).toString(16).padStart(2, "0")).join("");
+        return a < 1 ? `${h} ${Math.round(a * 100)}%` : h;
+      };
+      const hideInspect = () => {
+        outline.style.display = tip.style.display = "none";
+      };
+      const setInspect = (on) => {
+        inspecting = on;
+        setSwitch(inspectBtn, on);
+        if (!on) hideInspect();
+      };
+      const inspect = (e) => {
+        const el = e.target;
+        if (!inspecting || !el.closest("main section")) return hideInspect();
+        const r = el.getBoundingClientRect();
+        const c = getComputedStyle(el);
+        const lines = [
+          el.tagName.toLowerCase() + (el.closest("section").id ? "  (" + el.closest("section").id + ")" : ""),
+          `size     ${Math.round(r.width)} × ${Math.round(r.height)}`,
+          `font     ${c.fontSize} / ${c.lineHeight}, ${c.fontWeight}`,
+          `color    ${hex(c.color)}`,
+        ];
+        if (c.backgroundColor !== "rgba(0, 0, 0, 0)") lines.push(`bg       ${hex(c.backgroundColor)}`);
+        if (c.padding !== "0px") lines.push(`padding  ${c.padding}`);
+        if (c.margin !== "0px") lines.push(`margin   ${c.margin}`);
+        if (c.gap !== "normal") lines.push(`gap      ${c.gap}`);
+        tip.textContent = lines.join("\n");
+        Object.assign(outline.style, { display: "block", left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" });
+        tip.style.display = "block";
+        // Keep the tip next to the pointer and inside the window
+        const x = Math.min(e.clientX + 16, innerWidth - tip.offsetWidth - 8);
+        const y = e.clientY + 16 + tip.offsetHeight > innerHeight ? e.clientY - tip.offsetHeight - 16 : e.clientY + 16;
+        Object.assign(tip.style, { left: x + "px", top: y + "px" });
+      };
+      addEventListener("mouseover", inspect);
+      addEventListener("mousemove", inspect);
+      addEventListener("scroll", hideInspect, true);
       const showPanel = () => {
         panel.hidden = false;
       };
@@ -1119,6 +1172,7 @@
         setGrid(false);
         setSelectable(false);
         setNumbers(false);
+        setInspect(false);
       };
       const togglePanel = () => (panel.hidden ? showPanel() : hidePanel());
       // Locked state: no text selection, no context menu, no image dragging
@@ -1134,6 +1188,7 @@
       gridBtn.addEventListener("click", () => setGrid(!body.classList.contains("grid-on")));
       numbersBtn.addEventListener("click", () => setNumbers(numbersBtn.getAttribute("aria-checked") !== "true"));
       selectBtn.addEventListener("click", () => setSelectable(!selectable));
+      inspectBtn.addEventListener("click", () => setInspect(!inspecting));
       document.getElementById("cp-hide").addEventListener("click", hidePanel);
       // Typing the letters c, t, r, l in a row toggles the panel
       let typed = "";
@@ -1155,6 +1210,7 @@
       setGrid(false);
       setSelectable(false);
       setNumbers(false);
+      setInspect(false);
       // On localhost: panel open, slide numbers and cursor selection on. Elsewhere: hidden and locked
       if (["localhost", "127.0.0.1", "[::1]"].includes(location.hostname)) {
         showPanel();
