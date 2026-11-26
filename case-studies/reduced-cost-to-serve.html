@@ -1120,7 +1120,19 @@
       const inspectBtn = document.getElementById("cp-inspect");
       const outline = document.createElement("div");
       const tip = document.createElement("div");
-      outline.style.cssText = "position:fixed;z-index:60;pointer-events:none;outline:1px solid #0a84ff;background:rgba(10,132,255,.12);display:none";
+      outline.style.cssText = "position:fixed;z-index:60;pointer-events:none;box-sizing:border-box;border-style:solid;display:none";
+      // Box model overlay, DevTools colours: margin, border, padding layers drawn as borders around the content fill
+      const BOX = { margin: "rgba(246,178,107,.66)", border: "rgba(255,229,153,.8)", padding: "rgba(147,196,125,.6)", content: "rgba(111,168,220,.6)" };
+      outline.style.borderColor = BOX.margin;
+      const boxBorder = document.createElement("div");
+      const boxPad = document.createElement("div");
+      const boxContent = document.createElement("div");
+      boxBorder.style.cssText = `box-sizing:border-box;border-style:solid;border-color:${BOX.border};height:100%`;
+      boxPad.style.cssText = `box-sizing:border-box;border-style:solid;border-color:${BOX.padding};height:100%`;
+      boxContent.style.cssText = `height:100%;background:${BOX.content}`;
+      boxPad.append(boxContent);
+      boxBorder.append(boxPad);
+      outline.append(boxBorder);
       tip.style.cssText = "position:fixed;z-index:61;pointer-events:none;max-width:320px;padding:8px 12px;border-radius:8px;background:#222;color:#fff;font:12px/16px ui-monospace,Menlo,monospace;white-space:pre-wrap;display:none";
       body.append(outline, tip);
       let inspecting = false;
@@ -1144,16 +1156,39 @@
         const c = getComputedStyle(el);
         const lines = [
           el.tagName.toLowerCase() + (el.closest("section").id ? "  (" + el.closest("section").id + ")" : ""),
-          `size     ${Math.round(r.width)} × ${Math.round(r.height)}`,
           `font     ${c.fontSize} / ${c.lineHeight}, ${c.fontWeight}`,
           `color    ${hex(c.color)}`,
         ];
         if (c.backgroundColor !== "rgba(0, 0, 0, 0)") lines.push(`bg       ${hex(c.backgroundColor)}`);
-        if (c.padding !== "0px") lines.push(`padding  ${c.padding}`);
-        if (c.margin !== "0px") lines.push(`margin   ${c.margin}`);
         if (c.gap !== "normal") lines.push(`gap      ${c.gap}`);
-        tip.textContent = lines.join("\n");
-        Object.assign(outline.style, { display: "block", left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" });
+        // Box model, outside in: margin, border, padding, content (sides in top right bottom left order)
+        const sides = (f) => ["top", "right", "bottom", "left"].map((s) => parseFloat(c.getPropertyValue(f(s))) || 0);
+        const pad = sides((s) => `padding-${s}`);
+        const bor = sides((s) => `border-${s}-width`);
+        const px = (v) => v.map((n) => Math.round(n * 100) / 100).join(" ");
+        lines.push(
+          "── box model (t r b l)",
+          `margin   ${px(sides((s) => `margin-${s}`))}`,
+          `border   ${px(bor)}${bor.some(Boolean) ? `, ${c.borderTopStyle}, ${hex(c.borderTopColor)}` : ""}`,
+          `padding  ${px(pad)}`,
+          `content  ${Math.round(r.width - pad[1] - pad[3] - bor[1] - bor[3])} × ${Math.round(r.height - pad[0] - pad[2] - bor[0] - bor[2])}`,
+          `box      ${Math.round(r.width)} × ${Math.round(r.height)} (${c.boxSizing})`,
+        );
+        // Colour swatch before each box model line, matching the overlay
+        tip.replaceChildren(
+          ...lines.flatMap((l, i) => {
+            const col = BOX[l.split(" ")[0]];
+            const sw = document.createElement("span");
+            sw.style.color = col;
+            sw.textContent = "■ ";
+            return [...(col ? [sw] : []), l + (i < lines.length - 1 ? "\n" : "")];
+          }),
+        );
+        const mar = sides((s) => `margin-${s}`).map((n) => Math.max(0, n));
+        const bw = (v) => v.map((n) => n + "px").join(" ");
+        Object.assign(outline.style, { display: "block", left: r.left - mar[3] + "px", top: r.top - mar[0] + "px", width: r.width + mar[1] + mar[3] + "px", height: r.height + mar[0] + mar[2] + "px", borderWidth: bw(mar) });
+        boxBorder.style.borderWidth = bw(bor);
+        boxPad.style.borderWidth = bw(pad);
         tip.style.display = "block";
         // Keep the tip next to the pointer and inside the window
         const x = Math.min(e.clientX + 16, innerWidth - tip.offsetWidth - 8);

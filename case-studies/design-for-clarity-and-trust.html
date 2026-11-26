@@ -88,6 +88,12 @@
           <span aria-hidden="true" class="absolute left-[2px] top-[2px] block h-[16px] w-[16px] rounded-full bg-white transition-transform group-aria-checked/sw:translate-x-[16px]"></span>
         </button>
       </div>
+      <div class="mt-[8px] flex items-center justify-between gap-[12px]">
+        <span class="text-sm leading-[20px] text-[#222222]">Tweaks</span>
+        <button type="button" role="switch" id="cp-tune" aria-checked="false" aria-label="Tweaks" class="group/sw relative h-[20px] w-[36px] shrink-0 rounded-full border-0 bg-[#bdbdbd] p-0 cursor-pointer aria-checked:bg-[#222222]">
+          <span aria-hidden="true" class="absolute left-[2px] top-[2px] block h-[16px] w-[16px] rounded-full bg-white transition-transform group-aria-checked/sw:translate-x-[16px]"></span>
+        </button>
+      </div>
       <button type="button" id="cp-hide" class="mt-[16px] w-full rounded-[8px] border border-[#bdbdbd] bg-[#f5f5f5] px-[12px] py-[4px] text-sm leading-[20px] font-semibold text-[#222222] cursor-pointer">
         Hide panel (type ctrl)
       </button>
@@ -118,7 +124,19 @@
       const inspectBtn = document.getElementById("cp-inspect");
       const outline = document.createElement("div");
       const tip = document.createElement("div");
-      outline.style.cssText = "position:fixed;z-index:60;pointer-events:none;outline:1px solid #0a84ff;background:rgba(10,132,255,.12);display:none";
+      outline.style.cssText = "position:fixed;z-index:60;pointer-events:none;box-sizing:border-box;border-style:solid;display:none";
+      // Box model overlay, DevTools colours: margin, border, padding layers drawn as borders around the content fill
+      const BOX = { margin: "rgba(246,178,107,.66)", border: "rgba(255,229,153,.8)", padding: "rgba(147,196,125,.6)", content: "rgba(111,168,220,.6)" };
+      outline.style.borderColor = BOX.margin;
+      const boxBorder = document.createElement("div");
+      const boxPad = document.createElement("div");
+      const boxContent = document.createElement("div");
+      boxBorder.style.cssText = `box-sizing:border-box;border-style:solid;border-color:${BOX.border};height:100%`;
+      boxPad.style.cssText = `box-sizing:border-box;border-style:solid;border-color:${BOX.padding};height:100%`;
+      boxContent.style.cssText = `height:100%;background:${BOX.content}`;
+      boxPad.append(boxContent);
+      boxBorder.append(boxPad);
+      outline.append(boxBorder);
       tip.style.cssText = "position:fixed;z-index:61;pointer-events:none;max-width:320px;padding:8px 12px;border-radius:8px;background:#222;color:#fff;font:12px/16px ui-monospace,Menlo,monospace;white-space:pre-wrap;display:none";
       body.append(outline, tip);
       let inspecting = false;
@@ -142,16 +160,39 @@
         const c = getComputedStyle(el);
         const lines = [
           el.tagName.toLowerCase() + (el.closest("section").id ? "  (" + el.closest("section").id + ")" : ""),
-          `size     ${Math.round(r.width)} × ${Math.round(r.height)}`,
           `font     ${c.fontSize} / ${c.lineHeight}, ${c.fontWeight}`,
           `color    ${hex(c.color)}`,
         ];
         if (c.backgroundColor !== "rgba(0, 0, 0, 0)") lines.push(`bg       ${hex(c.backgroundColor)}`);
-        if (c.padding !== "0px") lines.push(`padding  ${c.padding}`);
-        if (c.margin !== "0px") lines.push(`margin   ${c.margin}`);
         if (c.gap !== "normal") lines.push(`gap      ${c.gap}`);
-        tip.textContent = lines.join("\n");
-        Object.assign(outline.style, { display: "block", left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" });
+        // Box model, outside in: margin, border, padding, content (sides in top right bottom left order)
+        const sides = (f) => ["top", "right", "bottom", "left"].map((s) => parseFloat(c.getPropertyValue(f(s))) || 0);
+        const pad = sides((s) => `padding-${s}`);
+        const bor = sides((s) => `border-${s}-width`);
+        const px = (v) => v.map((n) => Math.round(n * 100) / 100).join(" ");
+        lines.push(
+          "── box model (t r b l)",
+          `margin   ${px(sides((s) => `margin-${s}`))}`,
+          `border   ${px(bor)}${bor.some(Boolean) ? `, ${c.borderTopStyle}, ${hex(c.borderTopColor)}` : ""}`,
+          `padding  ${px(pad)}`,
+          `content  ${Math.round(r.width - pad[1] - pad[3] - bor[1] - bor[3])} × ${Math.round(r.height - pad[0] - pad[2] - bor[0] - bor[2])}`,
+          `box      ${Math.round(r.width)} × ${Math.round(r.height)} (${c.boxSizing})`,
+        );
+        // Colour swatch before each box model line, matching the overlay
+        tip.replaceChildren(
+          ...lines.flatMap((l, i) => {
+            const col = BOX[l.split(" ")[0]];
+            const sw = document.createElement("span");
+            sw.style.color = col;
+            sw.textContent = "■ ";
+            return [...(col ? [sw] : []), l + (i < lines.length - 1 ? "\n" : "")];
+          }),
+        );
+        const mar = sides((s) => `margin-${s}`).map((n) => Math.max(0, n));
+        const bw = (v) => v.map((n) => n + "px").join(" ");
+        Object.assign(outline.style, { display: "block", left: r.left - mar[3] + "px", top: r.top - mar[0] + "px", width: r.width + mar[1] + mar[3] + "px", height: r.height + mar[0] + mar[2] + "px", borderWidth: bw(mar) });
+        boxBorder.style.borderWidth = bw(bor);
+        boxPad.style.borderWidth = bw(pad);
         tip.style.display = "block";
         // Keep the tip next to the pointer and inside the window
         const x = Math.min(e.clientX + 16, innerWidth - tip.offsetWidth - 8);
@@ -171,6 +212,7 @@
         setSelectable(false);
         setNumbers(false);
         setInspect(false);
+        setTune(false);
       };
       const togglePanel = () => (panel.hidden ? showPanel() : hidePanel());
       // Locked state: no text selection, no context menu, no image dragging
@@ -194,6 +236,7 @@
         "keydown",
         (e) => {
           if (e.metaKey || e.ctrlKey || e.altKey || !e.key || e.key.length !== 1) return;
+          if (e.target instanceof HTMLInputElement) return;
           const key = e.key.toLowerCase();
           typed = (typed + key).slice(-4);
           if (typed === "ctrl") {
@@ -205,10 +248,383 @@
         },
         true,
       );
+      // Tweaks: click a slide element, change its values live, then copy every change as one list
+      const tuneBtn = document.getElementById("cp-tune");
+      const hideBtn = document.getElementById("cp-hide");
+      const tuneBox = document.createElement("div");
+      const pick = document.createElement("div");
+      tuneBox.style.cssText = "display:none;margin-top:12px;padding-top:12px;border-top:1px solid #e0e0e0;font:12px/16px ui-monospace,Menlo,monospace;color:#222";
+      pick.style.cssText = "position:fixed;z-index:59;pointer-events:none;outline:2px solid #ff9500;display:none";
+      hideBtn.before(tuneBox);
+      body.append(pick);
+      Object.assign(panel.style, { maxHeight: "calc(100vh - 32px)", overflowY: "auto" });
+      // [CSS property, label, arrow-key step]
+      const TUNE = [
+        ["font-size", "size", 4],
+        ["line-height", "line", 4],
+        ["font-weight", "weight", 100],
+        ["color", "color", 0],
+        ["background-color", "bg", 0],
+        ["text-align", "text", 0, "textAlign"],
+        ["width", "width", 4],
+        ["cols", "cols", 1],
+        // layout: direction plus a 9-point grid for children (Figma auto layout); self: where the element sits in its parent
+        ["layout", "layout", 0, "layout"],
+        ["gap", "gap", 4],
+        ["self", "self", 0, "self"],
+        // padding and margin: side groups with a mode picker (each side, opposite sides, all sides)
+        ["padding", "padding", 0, "sides"],
+        ["margin", "margin", 0, "sides"],
+      ];
+      const changes = new Map();
+      let tuning = false;
+      let picked = null;
+      let grid = null;
+      // Read the slide's column overlay: column count, column width and gutter
+      const gridOf = (sec) => {
+        for (const d of sec?.querySelectorAll("div[aria-hidden]") || []) {
+          const s = getComputedStyle(d);
+          const bg = s.backgroundImage;
+          if (!/to right|90deg/.test(bg)) continue;
+          const px = (bg.match(/[\d.]+px/g) || []).map(parseFloat);
+          const W = parseFloat(s.width);
+          const colW = px[1] - px[0];
+          if (!(W && colW)) continue;
+          const n = bg.startsWith("repeating")
+            ? Math.round((W + px[3] - px[1]) / px[3])
+            : (bg.match(/rgba?\([^)]*\)/g) || []).filter((x) => x !== "rgba(0, 0, 0, 0)").length / 2;
+          return { n, colW, gap: n > 1 ? (W - n * colW) / (n - 1) : 0 };
+        }
+        return null;
+      };
+      const round2 = (n) => String(Math.round(n * 100) / 100);
+      const colsOf = (w) => round2((parseFloat(w) + grid.gap) / (grid.colW + grid.gap));
+      const pxOf = (n) => Math.round(n * grid.colW + Math.max(0, n - 1) * grid.gap) + "px";
+      const inputs = {};
+      // Dropdown rows: guideline values, plus the original and current values when they sit off the scale
+      const fillSelect = (sel, opts, cur, orig, fmt, off) => {
+        sel.replaceChildren();
+        for (const v of [...new Set([orig, cur])].filter((v) => !opts.some(([o]) => o === v))) {
+          const o = new Option(`${fmt(v)} (${v === orig ? "original, " : ""}${off})`, v);
+          o.disabled = v !== orig;
+          sel.add(o);
+        }
+        for (const [v, t] of opts) sel.add(new Option(t + (v === orig ? " (original)" : ""), v));
+        sel.value = cur;
+      };
+      const fillCols = (sel, cur, orig) =>
+        fillSelect(sel, Array.from({ length: grid.n }, (_, i) => [String(i + 1), `${i + 1} col${i ? "s" : ""} · ${pxOf(i + 1)}`]), cur, orig, (v) => `${v} cols`, "off grid");
+      // Spacing scale from the build guidelines (section 7) and deck overrides
+      const SPACE = [[0], [4], [8], [12], [16], [24], [32], [64, "slide padding"], [96, "title top"]];
+      const DROP = ["gap"];
+      const FIELD = "flex:1;min-width:0;height:24px;padding:0 6px;border:1px solid #bdbdbd;border-radius:4px;font:inherit;color:inherit";
+      const SIDE_MODES = {
+        sides: ["Each side", [["top", ["top"]], ["right", ["right"]], ["bottom", ["bottom"]], ["left", ["left"]]]],
+        pairs: ["Opposite sides", [["vert", ["top", "bottom"]], ["horiz", ["left", "right"]]]],
+        all: ["All sides", [["all", ["top", "right", "bottom", "left"]]]],
+      };
+      const sideMode = { padding: "sides", margin: "sides" };
+      const spaceOpts = (prop) => {
+        const o = SPACE.map(([v, n]) => [v + "px", n ? `${v}px · ${n}` : v + "px"]);
+        const g = grid && Math.round(grid.gap) + "px";
+        if (prop === "gap" && g && !o.some(([v]) => v === g)) o.push([g, `${g} · column gutter`]);
+        return o.sort((a, b) => parseFloat(a[0]) - parseFloat(b[0]));
+      };
+      const labelOf = (el) => {
+        const cls = [...el.classList].slice(0, 3).join(".");
+        const text = (el.alt || el.textContent || "").trim().replace(/\s+/g, " ");
+        const short = text.length > 40 ? text.slice(0, 40) + "…" : text;
+        return `${el.closest("section").id} › ${el.tagName.toLowerCase()}${cls ? "." + cls : ""}${short ? ` "${short}"` : ""}`;
+      };
+      const shown = (prop, c) => {
+        const v = c.getPropertyValue(prop);
+        if (prop === "color" || prop === "background-color") return v === "rgba(0, 0, 0, 0)" ? "transparent" : hex(v);
+        return v;
+      };
+      const placePick = () => {
+        if (!picked) return (pick.style.display = "none");
+        const r = picked.getBoundingClientRect();
+        Object.assign(pick.style, { display: "block", left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" });
+      };
+      const makeBtn = (text, onClick) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = hideBtn.className;
+        b.style.marginTop = "8px";
+        b.textContent = text;
+        b.addEventListener("click", onClick);
+        return b;
+      };
+      const count = () => [...changes.values()].reduce((n, r) => n + Object.keys(r.props).length, 0);
+      const apply = (prop, from, to, el = picked) => {
+        let rec = changes.get(el);
+        if (!rec) changes.set(el, (rec = { label: labelOf(el), props: {} }));
+        if (to === "" || to === from) {
+          el.style.removeProperty(prop);
+          delete rec.props[prop];
+        } else {
+          el.style.setProperty(prop, to);
+          rec.props[prop] = { from: rec.props[prop]?.from ?? from, to };
+          if (prop === "width" && grid && /px$/.test(to)) Object.assign(rec.props[prop], { fromCols: colsOf(rec.props[prop].from), toCols: colsOf(to) });
+        }
+        // Keep the width and cols rows in step
+        if (el === picked && prop === "width" && grid && inputs.cols) fillCols(inputs.cols, colsOf(to || from), colsOf(rec.props.width?.from ?? from));
+        if (!Object.keys(rec.props).length) changes.delete(el);
+        placePick();
+        copyBtn.textContent = `Copy changes (${count()})`;
+      };
+      const copyText = () =>
+        `Tweaks on ${location.pathname.split("/").pop()}:\n` +
+        [...changes.values()]
+          .map((r, i) => `${i + 1}. ${r.label}: ` + Object.entries(r.props).map(([p, v]) => (v.toCols ? `${p} ${v.from} (${v.fromCols} cols) → ${v.to} (${v.toCols} cols)` : `${p} ${v.from} → ${v.to}`)).join(", "))
+          .join("\n");
+      const copyBtn = makeBtn("Copy changes (0)", () => {
+        if (!count()) return;
+        const text = copyText();
+        navigator.clipboard.writeText(text).then(
+          () => {
+            copyBtn.textContent = `Copied ${count()} changes`;
+            setTimeout(() => (copyBtn.textContent = `Copy changes (${count()})`), 1500);
+          },
+          () => prompt("Copy the changes:", text),
+        );
+      });
+      const resetBtn = makeBtn("Reset all", () => {
+        changes.forEach((r, el) => Object.keys(r.props).forEach((p) => el.style.removeProperty(p)));
+        changes.clear();
+        renderTune();
+      });
+      // Fill width: every in-flow child of the picked element gets width 100%
+      const flowKids = () => [...(picked?.children || [])].filter((k) => !["absolute", "fixed"].includes(getComputedStyle(k).position));
+      const fillBtn = makeBtn("Fill width", () => {
+        for (const k of flowKids()) apply("width", shown("width", getComputedStyle(k)), "100%", k);
+        renderTune();
+      });
+      let snap = false;
+      const parentBtn = makeBtn("Select parent", () => {
+        const up = picked?.parentElement;
+        if (up && up.closest("main section")) select(up);
+      });
+      const renderTune = () => {
+        const head = document.createElement("div");
+        head.style.cssText = "margin-bottom:8px;word-break:break-word";
+        head.textContent = picked ? labelOf(picked) : "Click an element on a slide. Arrow keys step by 4 (Alt: 1).";
+        tuneBox.replaceChildren(head);
+        if (picked) {
+          const c = getComputedStyle(picked);
+          const rec = changes.get(picked);
+          for (const k in inputs) delete inputs[k];
+          const addRow = (name, field, indent) => {
+            // div for button groups, so clicking the row label does not press the first button
+            const row = document.createElement(field.tagName === "DIV" ? "div" : "label");
+            row.style.cssText = `display:flex;align-items:center;gap:8px;margin-top:${indent === false ? 8 : 4}px`;
+            const span = document.createElement("span");
+            span.style.cssText = `width:${indent ? 48 : 56}px;flex-shrink:0;padding-left:${indent ? 8 : 0}px`;
+            span.textContent = name;
+            if (field.tagName !== "DIV") field.style.cssText = FIELD;
+            row.append(span, field);
+            tuneBox.append(row);
+          };
+          // Side group: mode picker, then one dropdown per side, per opposite pair, or for all sides
+          const addSides = (g) => {
+            const mode = document.createElement("select");
+            for (const [k, [label]] of Object.entries(SIDE_MODES)) mode.add(new Option(label, k));
+            mode.value = sideMode[g];
+            mode.addEventListener("change", () => {
+              sideMode[g] = mode.value;
+              renderTune();
+            });
+            addRow(g, mode, false);
+            for (const [name, sides] of SIDE_MODES[sideMode[g]][1]) {
+              const props = sides.map((side) => `${g}-${side}`);
+              const froms = props.map((p) => rec?.props[p]?.from ?? shown(p, c));
+              const key = (vals) => [...new Set(vals)].join(" / ");
+              const orig = key(froms);
+              const sel = document.createElement("select");
+              fillSelect(sel, spaceOpts(g), key(props.map((p, i) => rec?.props[p]?.to ?? froms[i])), orig, (v) => v, "off scale");
+              sel.addEventListener("change", () => props.forEach((p, i) => apply(p, froms[i], sel.value === orig ? froms[i] : sel.value)));
+              addRow(name, sel, true);
+            }
+          };
+          const fromOf = (p, v) => rec?.props[p]?.from ?? v ?? c.getPropertyValue(p);
+          const addChoice = (name, prop, opts, from, title) => {
+            const sel = document.createElement("select");
+            fillSelect(sel, opts, rec?.props[prop]?.to ?? from, from, (v) => v, "custom");
+            sel.title = title;
+            sel.addEventListener("change", () => apply(prop, from, sel.value));
+            addRow(name, sel);
+          };
+          // Children layout: none, row or column, then a 3 x 3 grid that sets justify-content and align-items
+          const A3 = ["flex-start", "center", "flex-end"];
+          const normJ = (v) => ({ normal: "flex-start", start: "flex-start", left: "flex-start", end: "flex-end", right: "flex-end" })[v] ?? v;
+          const normA = (v) => ({ start: "flex-start", "self-start": "flex-start", end: "flex-end", "self-end": "flex-end" })[v] ?? v;
+          const addLayout = () => {
+            const dispFrom = fromOf("display"), dirFrom = fromOf("flex-direction");
+            const dirOf = (d, f) => (/flex/.test(d) ? (f.startsWith("column") ? "column" : "row") : "none");
+            const sel = document.createElement("select");
+            fillSelect(sel, [["none", "none"], ["row", "row →"], ["column", "column ↓"]], dirOf(c.display, c.flexDirection), dirOf(dispFrom, dirFrom), (v) => v, "");
+            sel.title = "Lay out children in a row or column (flex)";
+            sel.addEventListener("change", () => {
+              const flexFrom = /flex/.test(dispFrom);
+              apply("display", dispFrom, sel.value === "none" ? (flexFrom ? "block" : dispFrom) : flexFrom ? dispFrom : "flex");
+              apply("flex-direction", dirFrom, sel.value === "none" ? dirFrom : sel.value);
+              renderTune();
+            });
+            addRow("layout", sel);
+            if (!/flex/.test(c.display)) return;
+            const jFrom = fromOf("justify-content"), aFrom = fromOf("align-items");
+            const col = c.flexDirection.startsWith("column");
+            const j = A3.indexOf(normJ(c.justifyContent)), a = A3.indexOf(normA(c.alignItems));
+            const pad = document.createElement("div");
+            pad.style.cssText = "display:grid;grid-template-columns:repeat(3,20px);gap:2px";
+            for (let y = 0; y < 3; y++)
+              for (let x = 0; x < 3; x++) {
+                const [jj, aa] = col ? [y, x] : [x, y];
+                const b = document.createElement("button");
+                b.type = "button";
+                b.title = `justify-content ${A3[jj]}, align-items ${A3[aa]}`;
+                b.style.cssText = `width:20px;height:20px;padding:0;border:1px solid #bdbdbd;border-radius:3px;cursor:pointer;background:${jj === j && aa === a ? "#222" : "#fff"}`;
+                b.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  apply("justify-content", jFrom, normJ(jFrom) === A3[jj] ? jFrom : A3[jj]);
+                  apply("align-items", aFrom, normA(aFrom) === A3[aa] ? aFrom : A3[aa]);
+                  renderTune();
+                });
+                pad.append(b);
+              }
+            addRow("align", pad, true);
+          };
+          // Self: align-self in a flex or grid parent, margin-inline in a block parent
+          const addSelf = () => {
+            const flexy = /flex|grid/.test(getComputedStyle(picked.parentElement).display);
+            if (flexy)
+              addChoice("self", "align-self", [["auto", "auto (parent)"], ["flex-start", "start"], ["center", "center"], ["flex-end", "end"], ["stretch", "stretch"]], fromOf("align-self"), "align-self on the parent's cross axis");
+            else addChoice("self", "margin-inline", [["0px", "start"], ["auto", "center"], ["auto 0px", "end"]], fromOf("margin-inline"), "margin-inline in a block parent (needs a set width)");
+          };
+          for (const [prop, name, step, kind] of TUNE) {
+            if (kind === "sides") {
+              addSides(prop);
+              continue;
+            }
+            if (kind === "textAlign") {
+              const ta = (v) => ({ start: "left", end: "right" })[v] ?? v;
+              addChoice(name, prop, ["left", "center", "right", "justify"].map((v) => [v, v]), ta(fromOf(prop)), "text-align");
+              continue;
+            }
+            if (kind === "layout") {
+              addLayout();
+              continue;
+            }
+            if (kind === "self") {
+              addSelf();
+              continue;
+            }
+            // cols edits width in grid columns (N columns plus N-1 gutters)
+            const isCols = prop === "cols";
+            if (isCols && !grid) continue;
+            const isSel = isCols || DROP.includes(prop);
+            const input = document.createElement(isSel ? "select" : "input");
+            inputs[prop] = input;
+            const wFrom = rec?.props.width?.from ?? shown("width", c);
+            const from = isCols ? colsOf(wFrom) : (rec?.props[prop]?.from ?? shown(prop, c));
+            if (isCols) fillCols(input, colsOf(rec?.props.width?.to ?? wFrom), from);
+            else if (isSel) fillSelect(input, spaceOpts(prop), rec?.props[prop]?.to ?? from, from, (v) => v, "off scale");
+            else input.value = rec?.props[prop]?.to ?? from;
+            if (isCols) input.title = `${grid.n} columns of ${round2(grid.colW)}px, gutter ${round2(grid.gap)}px`;
+            const onInput = () => {
+              const v = input.value.trim();
+              if (!isCols) return apply(prop, from, v);
+              const n = parseFloat(v);
+              apply("width", wFrom, v === from || isNaN(n) ? "" : pxOf(n));
+              if (inputs.width) inputs.width.value = picked.style.width || wFrom;
+            };
+            input.addEventListener(isSel ? "change" : "input", onInput);
+            // Snap: width settles on the nearest column count (on Enter or blur), arrows step one column
+            const snapsNow = () => prop === "width" && snap && grid && /px$/.test(input.value.trim());
+            const snapTo = (n) => {
+              input.value = pxOf(Math.min(grid.n, Math.max(1, n)));
+              onInput();
+            };
+            if (prop === "width") {
+              input.snapNow = () => snapsNow() && snapTo(Math.round(+colsOf(input.value)));
+              input.addEventListener("change", input.snapNow);
+            }
+            input.addEventListener("keydown", (e) => {
+              if (snapsNow() && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+                e.preventDefault();
+                const cur = +colsOf(input.value);
+                return snapTo(e.key === "ArrowUp" ? Math.floor(cur + 0.01) + 1 : Math.ceil(cur - 0.01) - 1);
+              }
+              if (isSel || !step || (e.key !== "ArrowUp" && e.key !== "ArrowDown")) return;
+              e.preventDefault();
+              const d = (e.key === "ArrowUp" ? 1 : -1) * (e.altKey && step === 4 ? 1 : step);
+              input.value = input.value.replace(/-?\d*\.?\d+/g, (n) => {
+                const v = Math.round((+n + d) * 100) / 100;
+                return String(prop === "margin" ? v : Math.max(0, v));
+              });
+              onInput();
+            });
+            addRow(name, input);
+            if (isCols) {
+              const cb = document.createElement("input");
+              cb.type = "checkbox";
+              cb.checked = snap;
+              cb.style.margin = "0";
+              cb.addEventListener("change", () => {
+                snap = cb.checked;
+                inputs.width?.snapNow();
+              });
+              const row = document.createElement("label");
+              row.style.cssText = "display:flex;align-items:center;gap:8px;margin-top:4px;cursor:pointer";
+              const span = document.createElement("span");
+              span.style.cssText = "width:56px;flex-shrink:0";
+              span.textContent = "snap";
+              row.append(span, cb, "Width to grid columns");
+              tuneBox.append(row);
+            }
+          }
+          const kids = flowKids().length;
+          fillBtn.textContent = `Fill width: ${kids} child${kids === 1 ? "" : "ren"} to 100%`;
+          if (kids) tuneBox.append(fillBtn);
+          tuneBox.append(parentBtn);
+        }
+        copyBtn.textContent = `Copy changes (${count()})`;
+        tuneBox.append(copyBtn, resetBtn);
+      };
+      const select = (el) => {
+        picked = el;
+        grid = gridOf(el.closest("section"));
+        placePick();
+        renderTune();
+      };
+      const setTune = (on) => {
+        tuning = on;
+        setSwitch(tuneBtn, on);
+        tuneBox.style.display = on ? "block" : "none";
+        if (!on) picked = null;
+        placePick();
+        if (on) renderTune();
+      };
+      addEventListener(
+        "click",
+        (e) => {
+          if (!tuning || panel.contains(e.target)) return;
+          const el = e.target.closest("main section *");
+          if (!el) return;
+          e.preventDefault();
+          e.stopPropagation();
+          select(el);
+        },
+        true,
+      );
+      addEventListener("scroll", placePick, true);
+      addEventListener("resize", placePick);
+      tuneBtn.addEventListener("click", () => setTune(!tuning));
       setGrid(false);
       setSelectable(false);
       setNumbers(false);
       setInspect(false);
+      setTune(false);
       // On localhost: panel open, slide numbers and cursor selection on. Elsewhere: hidden and locked
       if (["localhost", "127.0.0.1", "[::1]"].includes(location.hostname)) {
         showPanel();
